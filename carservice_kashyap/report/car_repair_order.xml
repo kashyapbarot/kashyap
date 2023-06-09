@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_car_repair_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center text-info">
+                            Car Report Order
+                        </h2>
+                        <div>
+                            <ul class="list-group"
+                                style="list-style-type:none">
+                                <li>Address:
+                                    <span t-if="doc.street_1"
+                                          t-field="doc.street_1"/>
+                                    <div t-if="doc.street_2"
+                                         t-field="doc.street_2"/>
+                                    <div t-if="doc.zip"
+                                         t-field="doc.zip"/>
+                                    <div t-if="doc.city"
+                                         t-field="doc.city"/>
+                                    <span t-if="doc.state_id"
+                                          t-field="doc.state_id"/>
+                                    <div t-if="doc.country_id"
+                                         t-field="doc.country_id"/>
+
+                                </li>
+                                <li>Email:
+                                    <span t-field="doc.email"/>
+                                </li>
+                                <li>Phone:
+                                    <span t-field="doc.phone"/>
+                                </li>
+                                <li>Date of Reciept:
+                                    <span t-esc="doc.date"/>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <h2>Reciept
+                            <span t-field="doc.repair_number"/>
+                        </h2>
+                        <table class="table borderless">
+                            <thead>
+                                <tr>
+                                    <th>Car</th>
+                                    <th>Model Number</th>
+                                    <th>Serial Number</th>
+                                    <th>Gurantee</th>
+                                    <th>Service Time</th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="text-align:center;">
+                                <tr>
+                                    <td>
+                                        <span t-esc="doc.vehicle_id.model_id.display_name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="doc.vehicle_id.model_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="doc.repair_number"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="doc.guarantee_type"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="doc.vehicle_status"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <h5>Service Details:</h5>
+                        <table class="table borderless">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span t-esc="doc.vehicle_id.model_id.display_name"/>
+                                    </th>
+                                    <th>
+                                        <span t-esc="doc.diagnosis_result"/>
+                                    </th>
+                                    <th>
+                                        <span t-esc="doc.notes"/>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="report_car_repair_order_report_id" model="ir.actions.report">
+        <field name="name">cars report</field>
+        <field name="model">car.repair.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">carservice_kashyap.report_car_repair_order
+        </field>
+        <field name="report_file">carservice_kashyap.report_car_repair_order
+        </field>
+    </record>
+
+</odoo>
+        <!-- QWeb Reports -->
+        <!-- NAME & FILE_NAME should be the same -->

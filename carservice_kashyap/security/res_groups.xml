@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="technician_group_sub" model="res.groups">
+        <field name="name">Technician</field>
+        <field name="category_id"
+               ref="base.module_category_hidden"/>
+    </record>
+    <record id="head_technician_group_sub" model="res.groups">
+        <field name="name">Head Technician</field>
+        <field name="category_id"
+               ref="base.module_category_hidden"/>
+    </record>
+    <record id="service_manager_group_sub" model="res.groups">
+        <field name="name">Service Manager</field>
+        <field name="category_id"
+               ref="base.module_category_hidden"/>
+    </record>
+    <record id="access_repair_order_service_manager" model="ir.rule">
+        <field name="name">Repair Order: Service Manager Access</field>
+        <field name="model_id" ref="model_car_repair_order"/>
+        <field name="groups" eval="[(4, ref('service_manager_group_sub'))]"/>
+    </record>
+    <record id="access_repair_order_technician" model="ir.rule">
+        <field name="name">Repair Order: Technician Access</field>
+        <field name="model_id" ref="model_car_repair_order"/>
+        <field name="domain_force">[('technician_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('technician_group_sub'))]"/>
+    </record>
+
+    <record id="access_repair_order_head_technician" model="ir.rule">
+        <field name="name">Repair Order: Head Technician Access</field>
+        <field name="model_id" ref="model_car_repair_order"/>
+        <field name="domain_force">[('states', '=', 'two')]</field>
+        <field name="groups" eval="[(4, ref('head_technician_group_sub'))]"/>
+    </record>
+</odoo>

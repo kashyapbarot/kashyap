@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <!--            <xpath expr="//field[@name='partner_id']"-->
+            <!--                   position="before">-->
+            <!--                <field name="property_id"/>-->
+            <!--            </xpath>-->
+            <xpath expr="//div[@name='button_box']" position="after">
+                <widget name="web_ribbon" title="Quotation"
+                        bg_color="bg-warning"
+                        attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                <widget name="web_ribbon" title="Quotation Sent"
+                        bg_color="bg-warning"
+                        attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                <widget name="web_ribbon" title="Sale Order"
+                        bg_color="bg-warning"
+                        attrs="{'invisible': [('state', '!=', 'sale')]}"/>
+                <widget name="web_ribbon" title="Locked"
+                        bg_color="bg-warning"
+                        attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                <widget name="web_ribbon" title="Cancelled"
+                        bg_color="bg-warning"
+                        attrs="{'invisible': [('state', '!=', 'cancle')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

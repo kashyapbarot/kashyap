@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+    <menuitem id="car_repair_root_menu" name="Car Repair"/>
+    <menuitem id="car_repair_root_menu_sub" name="Car"
+              parent="car_repair_root_menu"/>
+    <menuitem id="car_repair_car_master" name="Car Master"
+              parent="car_repair_root_menu_sub" action="fleet_form_inherit_action"/>
+    <menuitem id="car_repair_car_repair_order" name="Car Repair Order"
+              parent="car_repair_root_menu_sub" action="action_car_repair_order"/>
+    <menuitem id="car_repair_root_menu_sub_configuration" name="Configuration"
+              parent="car_repair_root_menu"/>
+    <menuitem id="car_repair_repair_type" name="Repair Type"
+              parent="car_repair_root_menu_sub_configuration" action="action_car_repair_order_type"/>
+    <menuitem id="car_repair_repair_type_wizard" name="wizard"
+              parent="car_repair_root_menu"/>
+    <menuitem id="car_repair_repair_wizard" name="Car Repair Order wizard"
+              parent="car_repair_root_menu_sub_configuration" action="action_car_wizard"/>
+</odoo>

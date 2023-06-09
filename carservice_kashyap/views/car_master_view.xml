@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="fleet_form_inherit_action_form" model="ir.ui.view">
+        <field name="name">fleet.form.inherit.form</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <group>
+                    <field name="car_master"></field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="fleet_form_inherit_action" model="ir.actions.act_window">
+        <field name="name">Carmaster</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fleet.vehicle</field>
+        <field name="domain">[('car_master','=',True)]</field>
+        <field name="context">{'default_car_master': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="data_brake" model="repair.type">
+            <field name="name">BRAKE</field>
+            <field name="service_type">two</field>
+        </record>
+        <record id="data_soil_filter" model="repair.type">
+            <field name="name">SOIL-FILTER</field>
+            <field name="service_type">two</field>
+        </record>
+        <record id="data_transmission" model="repair.type">
+            <field name="name">TRANSMISSION FLUID</field>
+            <field name="service_type">one</field>
+        </record>
+        <record id="data_coolant_fluid" model="repair.type">
+            <field name="name">COOLANT FLUID EXCHANGE</field>
+            <field name="service_type">one</field>
+        </record>
+        <record id="data_spark_plugs" model="repair.type">
+            <field name="name">SPARK PLUGS</field>
+            <field name="service_type">one</field>
+        </record>
+        <record id="data_windshield_wipers" model="repair.type">
+            <field name="name">WINDSHIELD WIPERS</field>
+            <field name="service_type">three</field>
+        </record>
+        <record id="data_battery_performance" model="repair.type">
+            <field name="name">BATTERY PERFORMANCE</field>
+            <field name="service_type">three</field>
+        </record>
+    </data>
+</odoo>

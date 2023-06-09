@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">Tags</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="tags_ids" widget="many2many_tags" context="{'partner_ids':partner_id}"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Documents">
+                        <field name="documents_ids"/>
+                    </page>
+                </xpath>
+<!--                <xpath expr="//field[@name='product_template_id']" position="after">-->
+<!--                        <field name="tags_ids"/>-->
+<!--                </xpath>-->
+                <xpath expr="//form//header//button[@name='action_quotation_send']" position="after">
+                    <button name="get_documents" type="object"
+                            string="get documents"
+                            data-hotkey="x"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

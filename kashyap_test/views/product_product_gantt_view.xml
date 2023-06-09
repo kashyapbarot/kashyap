@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_product_product_gantt" model="ir.ui.view">
+            <field name="name">product.product.gantt</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <gantt string="Product Gantt View" date_start="date_start"
+                       date_stop="date_deadline">
+                    <field name="name" string="Title"/>
+                    <field name="date_start"/>
+                    <field name="date_deadline"/>
+                    <field name="categ_id" invisible="1"/>
+                </gantt>
+            </field>
+        </record>
+        <record id="purchase_product_product_action" model="ir.actions.act_window.view">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">gantt</field>
+            <field name="view_id" ref="view_product_product_gantt"/>
+            <field name="act_window_id" ref="purchase.product_product_action"/>
+        </record>
+        <record id="product_inherit_action" model="ir.ui.view">
+            <field name="name">product form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='detailed_type']" position="after">
+                    <field name="date_start"/>
+                    <field name="date_deadline"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

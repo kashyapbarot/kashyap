@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_car_repair_order_type_form" model="ir.ui.view">
+        <field name="name">car repair</field>
+        <field name="model">repair.type</field>
+        <field name="arch" type="xml">
+            <form string="_form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="service_type" widget="radio" options="{'horizontal': true}"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_car_repair_order_type" model="ir.actions.act_window">
+            <field name="name">Car Repair type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">repair.type</field>
+            <field name="view_mode">kanban,tree,form,search</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new ModelTitle.
+                </p>
+            </field>
+    </record>
+</odoo>

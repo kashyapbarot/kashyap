@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="auto_sequence" model="ir.sequence">
+            <field name="code">model.sequence</field>
+            <field name="name">cars</field>
+            <field name="prefix">SR/%(year)s/</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

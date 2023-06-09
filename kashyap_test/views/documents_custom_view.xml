@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="custom_documents_tree_view" model="ir.ui.view">
+        <field name="name">documents.custom.tree</field>
+        <field name="model">documents.custom</field>
+        <field name="arch" type="xml">
+            <tree string="Tags">
+                <field name="name"/>
+                <field name="attachment_id"/>
+                <field name="tag_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    <record id="custom_documents_form_view" model="ir.ui.view">
+        <field name="name">documents.custom.form</field>
+        <field name="model">documents.custom</field>
+        <field name="arch" type="xml">
+            <form string="Tags">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="attachment_id"/>
+                        <field name="tag_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="custom_documents_act_window" model="ir.actions.act_window">
+        <field name="name">Custom Documents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">documents.custom</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new ModelTitle.
+            </p>
+        </field>
+    </record>
+</odoo>

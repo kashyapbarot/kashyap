@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+carservice_kashyap.access_car_repair_order,access_car_repair_order,carservice_kashyap.model_car_repair_order,base.group_user,1,1,1,1
+carservice_kashyap.access_repair_type,access_repair_type,carservice_kashyap.model_repair_type,base.group_user,1,1,1,1
+carservice_kashyap.access_car_repair_order_wizard,access_car_repair_order_wizard,carservice_kashyap.model_car_repair_order_wizard,base.group_user,1,1,1,1

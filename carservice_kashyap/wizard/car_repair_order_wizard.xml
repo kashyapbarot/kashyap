@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    form-view-->
+    <record id="view_car_wizard_form" model="ir.ui.view">
+        <field name="name">car.wizard</field>
+        <field name="model">car.repair.order.wizard</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <form string="car">
+                <sheet>
+                    <group>
+                        <field name="s_date"/>
+                        <field name="e_date"/>
+                        <field name="t_ids" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button name="generate_report" class="btn btn-success"
+                                type="object"
+                                string="Print Excel"/>
+                        <button class="btn-secondary" type="object"
+                                string="Cancel"
+                                special="cancel" data-hotkey="x"/>
+                    </footer>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+    <!--    Action-->
+    <record id="action_car_wizard" model="ir.actions.act_window">
+        <field name="name">car.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">car.repair.order.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_car_wizard_form"/>
+    </record>
+
+</odoo>
