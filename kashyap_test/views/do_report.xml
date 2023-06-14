@@ -1,0 +1,31 @@
+<odoo>
+    <template id="report_shipping_doc" inherit_id="stock.report_picking">
+        <xpath expr="//table[1]" position="after">
+            <table class="table table-sm" t-if="o.move_line_ids and o.move_ids_without_package">
+                <thead>
+                    <tr>
+                        <th>
+                            <strong>Name</strong>
+                        </th>
+                        <th>
+                            <strong>Tags</strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="o.documents_delivery_ids" t-as="dd">
+                        <tr>
+                            <td>
+                                <span t-field="dd.name"/>
+                            </td>
+                             <td>
+                                <span t-field="dd.tag_ids"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+
+            </table>
+        </xpath>
+    </template>
+</odoo>

@@ -29,9 +29,7 @@ class SaleOrderLine(models.Model):
         if pricelist_select:
             pricelist_table = self.env['product.pricelist'].browse(
                 pricelist_select).item_ids.mapped('product_tmpl_id').ids
-            print(args)
             args = expression.AND([[('id', 'in', pricelist_table)], args])
-            print(args)
         return super()._search(args, offset=offset, limit=limit,
                                order=order,
                                count=count,

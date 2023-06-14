@@ -11,3 +11,6 @@ print(list(l))
 
 j=filter(lambda x:True if 2<x<4 else False,number)
 print(list(j))
+
+
+

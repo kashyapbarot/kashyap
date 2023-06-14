@@ -9,3 +9,4 @@ class StockPicking(models.Model):
 
     documents_delivery_ids = fields.Many2many(comodel_name='documents.custom',
                                               string='Documents Delivery')
+
