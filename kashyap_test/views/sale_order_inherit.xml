@@ -10,14 +10,26 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="tags_ids" widget="many2many_tags" context="{'partner_ids':partner_id}"/>
                 </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="campaign_new_id"/>
+                    <field name="medium_new_id"/>
+                    <field name="source_new_id"/>
+                </xpath>
                 <xpath expr="//notebook" position="inside">
                     <page string="Documents">
                         <field name="documents_ids" readonly="1"/>
                     </page>
                 </xpath>
-<!--                <xpath expr="//field[@name='product_template_id']" position="after">-->
-<!--                        <field name="tags_ids"/>-->
-<!--                </xpath>-->
+                <xpath expr="//button[@name='action_preview_sale_order']" position="before">
+                    <button name="get_sales" type="object" class="oe_stat_button" icon="fa-shopping-bag">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">
+                                <field name="sale_order_count" widget="statinfo" nolabel="1"/>
+                            </span>
+                            <span class="o_stat_text">Sale Order</span>
+                        </div>
+                    </button>
+                </xpath>
                 <xpath expr="//form//header//button[@name='action_quotation_send']" position="after">
                     <button name="get_documents" type="object"
                             string="get documents"
@@ -25,6 +37,5 @@
                 </xpath>
             </field>
         </record>
-
     </data>
 </odoo>

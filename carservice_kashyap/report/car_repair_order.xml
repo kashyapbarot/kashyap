@@ -104,6 +104,8 @@
         </field>
         <field name="report_file">carservice_kashyap.report_car_repair_order
         </field>
+        <field name="binding_model_id" ref="model_car_repair_order"/>
+            <field name="binding_type">report</field>
     </record>
 
 </odoo>

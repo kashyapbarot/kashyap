@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_list_inherit" model="ir.ui.view">
+        <field name="name">List</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+             <xpath expr="//search/field[@name='user_id']" position="after">
+                <field name="company_id"/>
+                <field name="date_order"/>
+            </xpath>
+            <xpath expr="//group/filter[@name='customer']" position="after">
+                <filter string="Company" domain="[]" name="company"
+                        context="{'group_by':'company_id'}"/>
+                <filter string="Week"  name="week"
+                        context="{'group_by': 'date_order:week'}"/>
+<!--
+                       domain="[('date_order','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+-->
+            </xpath>
+        </field>
+    </record>
+</odoo>

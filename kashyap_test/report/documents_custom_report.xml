@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="report_custom">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Documents</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Attachments</th>
+                                        <th scope="col">Tags</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center;">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="doc_index +1"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="doc.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="doc.attachment_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-foreach="doc.tag_ids" t-as="tag">
+                                                <span t-esc="tag.name"/><span>  </span>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <record id="action_report_document_custom" model="ir.actions.report">
+            <field name="name">Document</field>
+            <field name="model">documents.custom</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kashyap_test.report_custom</field>
+            <field name="report_file">kashyap_test.report_custom</field>
+            <field name="binding_model_id" ref="model_documents_custom"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

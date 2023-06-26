@@ -6,11 +6,8 @@
         <field name="arch" type="xml">
             <tree string="Tags">
                 <field name="name"/>
-
                 <field name="attachment_id"/>
-                <button name="refresh_field"
-                       class="btn btn-secondary fa fa-download o_list_export_xlsx"
-                        type="object"/>
+                <field name="download_file_data" widget="binary"/>
                 <field name="tag_ids" widget="many2many_tags"/>
             </tree>
         </field>
@@ -21,8 +18,6 @@
         <field name="arch" type="xml">
             <form string="Tags">
                 <header>
-                    <button name="refresh_field" string="To Diagnosis"
-                            type="object" class="btn-primary"/>
                     <field name="tag_ids"/>
                 </header>
                 <sheet>.

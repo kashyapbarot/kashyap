@@ -22,7 +22,6 @@
                                 special="cancel" data-hotkey="x"/>
                     </footer>
                 </sheet>
-
             </form>
         </field>
     </record>
