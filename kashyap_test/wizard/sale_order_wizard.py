@@ -22,4 +22,5 @@ class CustomSaleOrder(models.TransientModel):
             'type': 'ir.actions.act_url',
             'url': url,
             'target': 'self',
+            'context': {'active_ids': self._default_get_record}
         }

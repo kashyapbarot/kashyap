@@ -12,6 +12,7 @@ class ExportPurchaseExcel(http.Controller):
     def export_excel(self, **kwargs):
         # get the report ID from the request parameters
         report_id = kwargs.get('target_report')
+        print(kwargs)
 
         # search for the purchase order with the given ID
         po = request.env['custom.sale.order'].search(

@@ -9,6 +9,15 @@ class StockPicking(models.Model):
 
     documents_delivery_ids = fields.Many2many(comodel_name='documents.custom',
                                               string='Documents Delivery')
+    s_data = fields.Char(
+        string='Data',
+        required=False)
+
+    def create(self, vals):
+        id = vals.get('origin')
+        vals['s_data'] = self.env['sale.order'].search([("name", '=', id)]).data
+        res = super().create(vals)
+        return res
 
 
 class StockMove(models.Model):

@@ -8,6 +8,9 @@
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_id']" position="after">
+                    <field name="s_data"/>
+                </xpath>
                 <xpath
                         expr="//notebook/page/field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']" position="after">
                     <field name="unit_price_new"/>

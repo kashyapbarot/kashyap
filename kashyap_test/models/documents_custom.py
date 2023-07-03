@@ -40,6 +40,9 @@ class SaleOrder(models.Model):
     """add field in sale order"""
     _inherit = 'sale.order'
 
+    data = fields.Char(
+        string='Data',
+        required=False)
     tags_ids = fields.Many2many(comodel_name='doc.tag.master', string='Tags')
     documents_ids = fields.Many2many(comodel_name='documents.custom',
                                      string='Documents')
@@ -94,6 +97,7 @@ class SaleOrder(models.Model):
         res = super().action_confirm()
         for rec in self.order_line:
             rec.move_ids.write({'unit_price_new': rec.price_unit})
+        # self.picking_ids.s_data = self.data
         return res
 
     def get_documents(self):
@@ -140,3 +144,10 @@ class SaleOrder(models.Model):
         #         if compare_lists(doc, tags):
         #             document_list.append(x.id)
         #     self.documents_ids = document_list
+
+    # @api.model
+    # def create(self, vals):
+    #     res = super().create(vals)
+    #     self.picking_ids.s_data = (0, 0, self.data)
+    #     print("11111----", vals)
+    #     return res

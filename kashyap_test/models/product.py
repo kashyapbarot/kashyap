@@ -9,3 +9,12 @@ class ProductProduct(models.Model):
 
     date_deadline = fields.Date(string='Deadline', index=True, copy=False)
     date_start = fields.Date(string='Start date', index=True, copy=False)
+
+
+class MRPProduct(models.Model):
+    """Purchase Order Inherit """
+    _inherit = 'mrp.production'
+
+    def create(self, vals):
+        res = super().create(vals)
+        return res

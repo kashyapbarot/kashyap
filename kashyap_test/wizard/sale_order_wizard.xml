@@ -30,8 +30,6 @@
         <field name="res_model">custom.sale.order</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-<!--        <field name="state">code</field>-->
-<!--        <field name="code">action = records.generate_report()</field>-->
         <field name="view_id" ref="view_custom_sale_order_wizard_form"/>
         <field name="binding_model_id" ref="model_sale_order"/>
     </record>
