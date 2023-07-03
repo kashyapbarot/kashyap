@@ -29,7 +29,8 @@
                                         </td>
                                         <td>
                                             <t t-foreach="doc.tag_ids" t-as="tag">
-                                                <span t-esc="tag.name"/><span>  </span>
+                                                <span t-esc="tag.name"/>
+                                                <span></span>
                                             </t>
                                         </td>
                                     </tr>
@@ -41,7 +42,6 @@
             </t>
         </template>
 
-
         <record id="action_report_document_custom" model="ir.actions.report">
             <field name="name">Document</field>
             <field name="model">documents.custom</field>
@@ -51,6 +51,5 @@
             <field name="binding_model_id" ref="model_documents_custom"/>
             <field name="binding_type">report</field>
         </record>
-
     </data>
 </odoo>

@@ -145,9 +145,8 @@ class SaleOrder(models.Model):
         #             document_list.append(x.id)
         #     self.documents_ids = document_list
 
-    # @api.model
     # def create(self, vals):
-    #     res = super().create(vals)
     #     self.picking_ids.s_data = (0, 0, self.data)
+    #     res = super().create(vals)
     #     print("11111----", vals)
     #     return res

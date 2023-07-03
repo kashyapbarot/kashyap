@@ -11,7 +11,7 @@
                     <field name="tags_ids" widget="many2many_tags" context="{'partner_ids':partner_id}"/>
                 </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="data"/>
+                    <field name="data" context="{'data':data}"/>
                     <field name="campaign_new_id"/>
                     <field name="medium_new_id"/>
                     <field name="source_new_id"/>

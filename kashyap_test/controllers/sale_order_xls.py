@@ -12,17 +12,12 @@ class ExportPurchaseExcel(http.Controller):
     def export_excel(self, **kwargs):
         # get the report ID from the request parameters
         report_id = kwargs.get('target_report')
-        print(kwargs)
-
         # search for the purchase order with the given ID
         po = request.env['custom.sale.order'].search(
             [('id', '=', report_id)]).mapped('t_ids')
-
         workbook = xlwt.Workbook()
         worksheet = workbook.add_sheet('SaleOrder', cell_overwrite_ok=True)
-
         style1 = xlwt.easyxf('align: horiz center')
-
         worksheet.col(0).width = 10000
         worksheet.col(1).width = 7000
         worksheet.col(2).width = 10000
@@ -30,7 +25,6 @@ class ExportPurchaseExcel(http.Controller):
         worksheet.col(4).width = 10000
         worksheet.col(5).width = 7000
         worksheet.col(6).width = 7000
-
         worksheet.write(0, 0, 'Name', style1)
         worksheet.write(0, 1, 'Creation Date', style1)
         worksheet.write(0, 2, 'Customer', style1)
@@ -38,7 +32,6 @@ class ExportPurchaseExcel(http.Controller):
         worksheet.write(0, 4, 'Company', style1)
         worksheet.write(0, 5, 'Total', style1)
         worksheet.write(0, 6, 'Status', style1)
-
         row = 0
         for row, data in enumerate(po):
             column = 0
