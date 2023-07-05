@@ -102,15 +102,28 @@ class SaleOrder(models.Model):
 
     def get_documents(self):
         """create record in documents page"""
-        doc_ids = []
-        tag_ids = self.tags_ids.ids
+        tag_ids = self.tags_ids.ids  # set for faster membership checks
         product_doc_ids = self.order_line.mapped(
             'product_template_id.documents_ids')
-        for rec in product_doc_ids:
-            for rt in rec.tag_ids:
-                if rt.id in tag_ids and rec.id not in doc_ids:
-                    doc_ids.append(rec.id)
-        self.documents_ids = [(6, 0, doc_ids)]
+        doc_ids = filter(
+            lambda rec: any(rt.id in tag_ids for rt in rec.tag_ids),
+            product_doc_ids)
+        document_ids = [doc.id for doc in doc_ids]
+        self.documents_ids = [(6, 0, document_ids)]
+
+    # old code
+
+    # def get_documents(self):
+    #     """create record in documents page"""
+    #     doc_ids = []
+    #     tag_ids = self.tags_ids.ids
+    #     product_doc_ids = self.order_line.mapped(
+    #         'product_template_id.documents_ids')
+    #     for rec in product_doc_ids:
+    #         for rt in rec.tag_ids:
+    #             if rt.id in tag_ids and rec.id not in doc_ids:
+    #                 doc_ids.append(rec.id)
+    #     self.documents_ids = [(6, 0, doc_ids)]
 
     def write(self, vals):
         """"create record in Stock Move"""

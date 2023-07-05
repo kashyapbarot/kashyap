@@ -29,8 +29,7 @@
                                         </td>
                                         <td>
                                             <t t-foreach="doc.tag_ids" t-as="tag">
-                                                <span t-esc="tag.name"/>
-                                                <span></span>
+                                                <span t-esc="tag.name"/> <span> </span>
                                             </t>
                                         </td>
                                     </tr>

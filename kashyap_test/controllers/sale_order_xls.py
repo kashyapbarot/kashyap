@@ -35,7 +35,6 @@ class ExportPurchaseExcel(http.Controller):
         row = 0
         for row, data in enumerate(po):
             column = 0
-            print(row)
             worksheet.write(row + 1, column, data.name, style1)
             column += 1
             worksheet.write(row + 1, column, str(datetime.date(data.create_date)), style1)
