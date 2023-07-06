@@ -13,11 +13,10 @@ class StockPicking(models.Model):
         string='Data',
         required=False)
 
-    def create(self, vals):
-        id = vals.get('origin')
-        vals['s_data'] = self.env['sale.order'].search([("name", '=', id)]).data
-        res = super().create(vals)
-        return res
+    # def _assign_picking(self):
+    #     self.create({'s_data': self.group_id.sale_id.data})
+    #     print("-----------------------------------")
+    #     return super()._assign_picking()
 
 
 class StockMove(models.Model):
@@ -26,3 +25,8 @@ class StockMove(models.Model):
 
     unit_price_new = fields.Float(
         string='Unit Price', readonly=True)
+
+    def _get_new_picking_values(self):
+        res = super()._get_new_picking_values()
+        res.update({'s_data': self.group_id.sale_id.data})
+        return res
