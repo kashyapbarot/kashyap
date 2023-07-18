@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">Tags</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="FOR OFFICE USE ONLY">
+                        <group string="AGREEMENT">
+                            <group>
+                                <field name="agreement_number"/>
+                            </group>
+                            <group>
+                                <field name="date_of_agreement"/>
+                            </group>
+                        </group>
+                        <group string="ACCOUNT">
+                            <group>
+                                <field name="account_manager"/>
+                            </group>
+                            <group>
+                                <field name="name_of_reference"/>
+                                <field name="referral_source"/>
+                            </group>
+                        </group>
+                        <group string="NOTES">
+                            <field name="additional_notes" nolabel="1" placeholder="Notes"  style="width:1080px"/>
+                        </group>
+                         <group string="SPECIAL INSTRUCTIONS">
+                            <field name="special_instructions" nolabel="1" placeholder="INSTRUCTIONS" style="width:1080px"/>
+                        </group>
+                         <group string="SCOPE OF WORK">
+                            <field name="scope_of_work" nolabel="1" placeholder="Notes" style="width:1080px"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -21,6 +21,11 @@
                         <field name="documents_ids" readonly="1"/>
                     </page>
                 </xpath>
+                <xpath
+                        expr="//notebook/page/field[@name='order_line']/tree/field[@name='name']"
+                        position="before">
+                    <field name="bom_line_id"/>
+                </xpath>
                 <xpath expr="//button[@name='action_preview_sale_order']" position="before">
                     <button name="get_sales" type="object" class="oe_stat_button" icon="fa-shopping-bag">
                         <div class="o_field_widget o_stat_info">

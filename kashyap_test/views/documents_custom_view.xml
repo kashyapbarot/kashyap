@@ -8,10 +8,11 @@
                 <field name="name"/>
                 <field name="attachment_id"/>
                 <field name="download_file_data" widget="binary"/>
-                <field name="tag_ids" widget="many2many_tags"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
             </tree>
         </field>
     </record>
+
     <record id="custom_documents_form_view" model="ir.ui.view">
         <field name="name">documents.custom.form</field>
         <field name="model">documents.custom</field>
@@ -24,7 +25,7 @@
                     <group>
                         <field name="name"/>
                         <field name="attachment_id"/>
-                        <field name="tag_ids" widget="many2many_tags"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     </group>
                 </sheet>
             </form>

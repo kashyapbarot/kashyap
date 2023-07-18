@@ -24,7 +24,6 @@
                                           t-field="doc.state_id"/>
                                     <div t-if="doc.country_id"
                                          t-field="doc.country_id"/>
-
                                 </li>
                                 <li>Email:
                                     <span t-field="doc.email"/>

@@ -13,11 +13,6 @@ class StockPicking(models.Model):
         string='Data',
         required=False)
 
-    # def _assign_picking(self):
-    #     self.create({'s_data': self.group_id.sale_id.data})
-    #     print("-----------------------------------")
-    #     return super()._assign_picking()
-
 
 class StockMove(models.Model):
     """add field on delivery order"""

@@ -22,6 +22,9 @@ class DocTagMaster(models.Model):
     _description = 'Doc Tag Master'
 
     name = fields.Char(string="Name")
+    color = fields.Integer(
+        string='Color',
+        required=False)
 
 
 class CustomerMaster(models.Model):
@@ -174,8 +177,3 @@ class SaleOrder(models.Model):
         #             document_list.append(x.id)
         #     self.documents_ids = document_list
 
-    # def create(self, vals):
-    #     self.picking_ids.s_data = (0, 0, self.data)
-    #     res = super().create(vals)
-    #     print("11111----", vals)
-    #     return res

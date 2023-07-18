@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from odoo import models, fields, api
 
 
@@ -41,3 +42,46 @@ class ProductTemplate(models.Model):
                          'product_id': product_1.product_variant_id.id,
                          'product_tmpl_id': product_1.id})]})
         return vals_list
+
+
+class SaleOrderLineInherit(models.Model):
+    """add m2m field in sale order line"""
+    _inherit = 'sale.order.line'
+
+    tags_ids = fields.Many2many('doc.tag.master', string='Tags_ids')
+    bom_new_id = fields.Many2one('mrp.bom', string='Bom')
+
+    is_mto_and_m = fields.Boolean(string="MTO&M", default=True)
+
+
+class SaleOrder(models.Model):
+    _inherit = "sale.order"
+
+    @api.onchange('order_line')
+    def check_invantory_in_mto_and_m(self):
+        for order in self.order_line:
+            var = order.product_template_id.route_ids.ids
+            mto_and_m_id = [self.env.ref('stock.route_warehouse0_mto').id,
+                            self.env.ref(
+                                'mrp.route_warehouse0_manufacture').id]
+            if var == mto_and_m_id:
+                order.is_mto_and_m = True
+            else:
+                order.is_mto_and_m = False
+
+
+class StockRule(models.Model):
+    _inherit = 'stock.rule'
+
+    def _prepare_mo_vals(self, product_id, product_qty, product_uom,
+                         location_dest_id, name, origin, company_id, values,
+                         bom):
+        # values.get('group_id').sale_id.order_line.bom_new_id
+        # bom_new_id = values.get('move_dest_ids').sale_line_id.bom_new_id
+        # res.update({'bom_id': bom_new_id.id})
+        return super()._prepare_mo_vals(product_id, product_qty,
+                                        product_uom,
+                                        location_dest_id, name, origin,
+                                        company_id, values,
+                                        bom=values.get(
+                                            'move_dest_ids').sale_line_id.bom_new_id or bom)

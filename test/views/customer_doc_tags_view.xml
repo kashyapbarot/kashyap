@@ -11,4 +11,23 @@
             </p>
         </field>
     </record>
+    <record id="sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">Tags</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='name']"
+                   position="before">
+                <field name="bom_new_id"
+                       domain="[('product_tmpl_id','=',product_template_id)]"/>
+                <field name ="is_mto_and_m" invisible="1"/>
+            </xpath>
+            <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='bom_new_id']"
+                   position="attributes">
+                <attribute name="attrs">{'readonly': [('is_mto_and_m', '=',False)]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
 </odoo>

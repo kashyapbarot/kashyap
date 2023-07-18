@@ -8,9 +8,12 @@ class SaleOrderLineInherit(models.Model):
     """add m2m field in sale order line"""
     _inherit = 'sale.order.line'
 
-    tags_ids = fields.Many2many(
-        comodel_name='doc.tag.master',
-        string='Tags_ids')
+    tags_ids = fields.Many2many('doc.tag.master', string='Tags_ids')
+    bom_line_id = fields.Many2one('mrp.bom', string='Bom line', domain=[('product_id', '=', 'product_id')])
+
+
+class MrpBom(models.Model):
+    _inherit = 'mrp.bom'
 
 
 class SaleOrderLine(models.Model):

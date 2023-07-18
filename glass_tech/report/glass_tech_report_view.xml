@@ -1,0 +1,1190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_service_agreement" model="report.paperformat">
+        <field name="name">Service Agreement A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">4</field>
+        <field name="margin_bottom">13</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+    <record id="action_report_glass_tech" model="ir.actions.report">
+        <field name="name">Glass Tech Report</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">glass_tech.report_service_agreement</field>
+        <field name="report_file">glass_tech.report_service_agreement</field>
+        <field name="paperformat_id" ref="glass_tech.paperformat_service_agreement"/>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="glass_tech_layout">
+        <t t-call="web.html_container">
+            <div class="article">
+                <t t-out="0"/>
+            </div>
+            <div class="footer o_standard_footer">
+                <div class="row" style="background-color:#000000;color:white;">
+                    <div class="col-10" style="padding:15px 15px 15px 15px;">
+                        <div class="col-12">
+                            <div class="web-info">
+                                <p>©SCAR, LLC dba GlassTech | 1445 Jupiter Park Dr. STE #11, Jupiter, FL 33458 |
+                                    <b>www.gtrestore.com</b>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="col-12">
+                            <div style="text-align: right;padding-right: 200px;">
+                                <p style=" padding-top: 4px;color: green;">Pg<span class="page"/>of
+                                    <span class="topage"/>
+                                </p>
+                                <span style="padding-bottom: 2em;">Service Agreement 2020</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_glass_tech_sale_order">
+        <t t-call="glass_tech.glass_tech_layout">
+            <p style="page-break-before:always;"/>
+            <div class="oe_structure"/>
+            <div class="text-left" style="border-bottom: 1px solid black;background-color:#252525;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-5">
+                            <h1 class="text-center" style="color:#f2f2f2;font-weight: bold;text:white">
+                                GLASSTECH
+                            </h1>
+                            <h6 class="text-center" style="color:#f2f2f2;font-weight: bold;text:white">Glass and
+                                Metal
+                                Restoration
+                            </h6>
+                        </div>
+                        <div class="col-7">
+                            <h3 style="color:#f2f2f2;font-weight: bold;text:white;padding: 10px 15px 10px 0px">
+                                STANDARD
+                                SERVICE AGREEMENT
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style=" border:10px solid green;margin:10px 0px 10px 0px;">
+            </div>
+            <div class="row">
+                <div class="col-8" style="border: 3px solid green; margin-right: 10px;">
+                    <div class="col-12">
+                        <h5 class="text-center" style="background-color:#008000;">
+                            CLIENT/PROPERTY INFORMATION
+                        </h5>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-7" style="margin-right: 5px;">
+                                <strong>Client Full Name (or Company Name):</strong>
+                                <br/>
+                                <div class="col-12"
+                                     style=" border-radius: 0rem;border: 2px solid #ced4da;;">
+                                    <span t-field="doc.partner_id"/>
+                                </div>
+                            </div>
+                            <div class="col-5" style="margin-left: 5px;">
+                                <strong>Client Phone:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.phone">
+                                        <span t-field="doc.partner_id.phone"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-7" style="margin-right: 5px;">
+                                <strong>Client Email:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.email">
+                                        <span t-field="doc.partner_id.email"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-5" style="margin-left: 5px;">
+                                <strong>Preferred Method of Contact:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.preferred_method_of_contact">
+                                        <span t-field="doc.partner_id.preferred_method_of_contact"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8" style="margin-right: 5px;">
+                                <strong>Service Location (Street Address):</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.street">
+                                        <span t-field="doc.partner_id.street"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-4" style="margin-left: 5px;">
+                                <strong>Service Location (Unit):</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.city">
+                                        <span t-field="doc.partner_id.city"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin:5px 5px 5px 5px;">
+                            <div class="col-6" style="margin-right: 5px;">
+                                <strong>Service Location (City):</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.city">
+                                        <span t-field="doc.partner_id.city"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-3" style="margin-right: 5px;">
+                                <strong>State:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.state_id">
+                                        <span t-field="doc.partner_id.state_id"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-3" style="margin-left: 5px;">
+                                <strong>Zip Code:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.zip">
+                                        <span t-field="doc.partner_id.zip"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <h5 class="text-center" style="background-color:#008000;width:100%">
+                            CONTRACTOR INFORMATION
+                        </h5>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-7" style="margin-right: 5px;">
+                                <strong>Client Full Name (or Company Name):</strong>
+                                <br/>
+                                <div class="col-12"
+                                     style=" border-radius: 0rem;border: 2px solid #ced4da;;">
+                                    <span t-field="doc.user_id.name"/>
+                                </div>
+                            </div>
+                            <div class="col-5" style="margin-left: 5px;">
+                                <strong>Client Phone:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.phone">
+                                        <span t-field="doc.user_id.phone"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-7" style="margin-right: 5px;">
+                                <strong>Client Email:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.email">
+                                        <span t-field="doc.user_id.login"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-5" style="margin-left: 5px;">
+                                <strong>Preferred Method of Contact:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.preferred_method_of_contact">
+                                        <span t-field="doc.partner_id.preferred_method_of_contact"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8" style="margin-right: 5px;">
+                                <strong>Service Location (Street Address):</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.street">
+                                        <span t-field="doc.user_id.company_id.street"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-4" style="margin-left: 5px;">
+                                <strong>Service Location (Unit):</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.city">
+                                        <span t-field="doc.user_id.company_id.city"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin:5px 5px 5px 5px;">
+                            <div class="col-6" style="margin-right:5px">
+                                <strong>Service Location (City):</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.city">
+                                        <span t-field="doc.user_id.company_id.city"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-3" style="margin-right:5px">
+                                <strong>State:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.state_id">
+                                        <span t-field="doc.user_id.company_id.state_id"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <strong>Zip Code:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.partner_id.zip">
+                                        <span t-field="doc.user_id.company_id.zip"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4" style="border: 3px solid grey;">
+                    <div class="col-12">
+                        <h5 class="text-center" style="background-color:#008000;">
+                            FOR OFFICE USE ONLY
+                        </h5>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6" style="margin-right: 5px;">
+                                <strong>Agreement Number:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.agreement_number">
+                                        <span t-field="doc.agreement_number"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-6" style="margin-left: 5px;">
+                                <strong>Date of Agreement:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.date_of_agreement">
+                                        <span t-field="doc.date_of_agreement"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <strong>Account Manager:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.account_manager">
+                                        <span t-field="doc.account_manager"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <strong>Referral Source:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <span t-field="doc.referral_source"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <strong>Name of Reference:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.name_of_reference">
+                                        <span t-field="doc.name_of_reference"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-4">
+                            <div class="col-12">
+                                <strong>Additional Notes:</strong>
+                                <br/>
+                                <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                    <t t-if="doc.additional_notes">
+                                        <span  t-field="doc.additional_notes"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12" style="margin-top:10px">
+                <h5 class="text-center" style="background-color:#008000;width:100%%">
+                    SPECIAL INSTRUCTIONS
+                </h5>
+            </div>
+            <div class="col-12" style="border: 2px solid green;margin-top: 10px">
+                <div>
+                    <t t-if="doc.special_instructions">
+                        <span t-field="doc.special_instructions"/>
+                    </t>
+                    <t t-else="">
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </t>
+                </div>
+            </div>
+            <div class="col-12" style="margin-top:10px">
+                <h5 class="text-center" style="background-color:#008000;width:100%%">
+                    SCOPE OF WORK
+                </h5>
+            </div>
+            <div style="border: 2px solid green;margin-top: 10px">
+                <t t-if="doc.scope_of_work">
+                    <span t-field="doc.scope_of_work"/>
+                </t>
+                <t t-else="">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </t>
+            </div>
+            <p style="page-break-before:always;"/>
+            <div class="col-12">
+                <h5 class="text-center" style="background-color:#008000;width:100%%">
+                    CLIENT INFORMATION
+                </h5>
+            </div>
+            <div class="container" style="border: 2px solid green;">
+                <div class="row"  style=" margin:5px 5px 5px 5px;">
+                    <div class="col-5" style="margin-right: 10px;">
+                        <strong>Client Full Name (or Company Name)</strong>
+                        <br/>
+                        <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                            <t t-if="doc.partner_id">
+                                <span t-field="doc.partner_id"/>
+                            </t>
+                            <t t-else="">
+                                <br/>
+                                <br/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="col-4" style="margin-right: 5px;">
+                        <strong>Contractor Contact</strong>
+                        <br/>
+                        <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                            <t t-if="doc.partner_id.phone">
+                                <span t-field="doc.partner_id.phone"/>
+                            </t>
+                            <t t-else="">
+                                <br/>
+                                <br/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="col-3" style="margin-right: 5px;">
+                        <strong>Agreement Number</strong>
+                        <br/>
+                        <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                            <t t-if="doc.agreement_number">
+                                <span t-field="doc.agreement_number"/>
+                            </t>
+                            <t t-else="">
+                                <br/>
+                                <br/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:5px">
+                <div class="col-8" style="margin-right:10px">
+                    <div class="col-12">
+                        <h5 class="text-center" style="background-color:#008000;width:100%%">
+                            SERVICES PROVIDED AND ITEMIZED COSTS
+                        </h5>
+                    </div>
+                    <div class="col-12">
+                        <div class="container" style="border: 2px solid green;">
+                            <t t-foreach="doc.order_line" t-as="o">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <t t-if="o.product_template_id">
+                                            <span t-field="o.product_template_id"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span>ADD SECTION</span>
+                                        </t>
+                                    </div>
+                                    <div class="col-4"
+                                         style="background-color:#ced4da; height:3px;margin:10px 0px 10px 0px">
+                                    </div>
+                                    <div class="col-4" style="padding:0px 0px 0px 70px">
+                                        <span>Price:</span>
+
+                                         <t t-if="o.price_unit">
+                                            <span t-field="o.price_unit"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span>  </span>
+                                        </t>
+                                    </div>
+                                </div>
+                                <br/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="col-12">
+                        <h5 class="text-center" style="background-color:#008000;width:100%%">
+                            TOTAL COST OF SERVICES
+                        </h5>
+                    </div>
+                    <div class="col-12">
+                        <div class="container" style="border: 2px solid green;">
+                            <t t-foreach="doc.order_line" t-as="o"/>
+                            <div class="row" style=" margin:5px 5px 5px 5px;">
+                                <div class="col-5" style="margin-right:10px">
+                                </div>
+                                <div class="col-7">
+                                    <span>Sub total:</span>
+                                    <div class="col-12"
+                                         style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                        <span t-field="doc.amount_untaxed"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style=" margin:5px 5px 5px 5px;">
+                                <div class="col-5" style="margin-right:10px">
+                                    <span>Sales Tax:</span>
+                                    <div class="col-12"
+                                         style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                        <span t-field="o.tax_id"/>
+                                    </div>
+                                </div>
+                                <div class="col-7" style=" margin:5px 5px 5px 5px;">
+                                    <span>Total Price:</span>
+                                    <div class="col-12"
+                                         style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                        <span t-field="doc.amount_total"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style=" margin:5px 5px 5px 5px;">
+                                <div class="col-5" style="margin-right:10px">
+                                    <span>Tax Amount:</span>
+                                    <div class="col-12"
+                                         style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                        <span t-field="doc.amount_tax"/>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <span>Deposit Amount:</span>
+                                    <div class="col-7"
+                                         style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                        <span>$ 0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style=" margin:5px 5px 5px 5px;">
+                                <div class="col-5" style="margin-right:10px">
+                                </div>
+                                <div class="col-7">
+                                    <span>Balance Due:</span>
+                                    <div class="col-12"
+                                         style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                        <span t-field="doc.amount_total"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12" style="margin-top:5px">
+                <h5 class="text-center"
+                    style="background-color:#008000;width:100%% ;border: 2px solid green;">
+                    IMPORTANT CONSUMER DISCLOSURES
+                </h5>
+            </div>
+            <div class="row-auto" style="border: 2px solid green; font-size: small;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="col-12">
+                                <p>
+                                    <strong>I. WAIVER OF LIABILITY FOR GLASS RESTORATION</strong>
+                                    <br/>
+                                    Customer acknowledges that glass breakage is an ordinary risk associated
+                                    with
+                                    glass restoration services no matter how carefully the service is
+                                    performed.custemer hereby releasese, waives and discharges Glasstech,
+                                    its agents
+                                    and employees (hereafeter Glasstech), and indemnifies and holds
+                                    Glasstech
+                                    harmless from any and all liability, claims, demands and causes of
+                                    action
+                                    whatsoever arising out of or related to any loss, damage, or injury
+                                    caused by
+                                    or through the glass restoration process, including glass breakage.
+                                    Customer
+                                    hereby accepts full responsibility for the risk of loss associated with
+                                    glass
+                                    restoration process. GlassTech does not guaranty or warrant that
+                                    Customer’s
+                                    glass will not break as a result of the glass restoration process, and
+                                    such
+                                    guaranty or warranty is hereby disclaimed by Customer.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-muted">Customer Initials</span>
+                            <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="col-12">
+                                <p>
+                                    <strong>II. CONDENSATION ACKNOWLEDGMENT</strong>
+                                    <br/>
+                                    Customer acknowledges that resurfaced glass in close proximity to water
+                                    or
+                                    other area of high humidity is susceptible at times to developing afilm
+                                    of moisture caused by the humidity on the polished glass as a natural
+                                    consequence of the resurfacing. Customer hereby agrees that this
+                                    condition
+                                    is neither
+                                    a defect in the provision of Company’s services, a breach of this
+                                    contract,
+                                    nor a breach of warranty hereunder.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-muted">Customer Initials</span>
+                            <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="col-12">
+                                <p>
+                                    <strong>III. CESSATION OF GLASS RESTORATION SERVICES DUE TO DEFECT
+                                    </strong>
+                                    <br/>
+                                    Company may declare the glass incapable of restoration and in need of
+                                    replacement. if upon further inspection of the glass and any frame or
+                                    support
+                                    thereof or during the glass restoration process, the Company determines
+                                    in
+                                    its sole discretion that the subject glass or its frame or support is
+                                    sufficiently
+                                    defective that it will not reasonably withstand the glass restoration
+                                    process. Thereupon, Company may cease its restoration of the subject
+                                    glass
+                                    without
+                                    refund of any amount to Customer. In the event Company deems the defect
+                                    immaterial and proceeds with the glass restoration process, Company
+                                    shall
+                                    not be liable for glass breakage during the process.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-muted">Customer Initials</span>
+                            <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="col-12">
+                                <p>
+                                    <strong>IV. METAL RESTORATION SERVICES</strong>
+                                    <br/>
+                                    Customer acknowledges that GlassTech performs a range of corrective
+                                    services
+                                    to non-ferrous metals and is free to deploy any of these processes in
+                                    order
+                                    to properly complete the project. GlassTech will not field-test the
+                                    grade of
+                                    metal nor the depth or extent of corrosion but will visually inspact
+                                    damage
+                                    prior to commencing restorative actions; therefore, if the metal grade
+                                    is
+                                    unknown or improperly disclosed to GlassTech then GlassTech will be
+                                    indemnified against
+                                    breakage, inferior outcomes or any other degradation of the metal. The
+                                    customer further acknowledges that corrosion or other damage which
+                                    results
+                                    in
+                                    separation of seams (welds) or other jointed locations will not be the
+                                    responsibility of GlassTech while conducting usual restorative
+                                    processes.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-muted">Customer Initials</span>
+                            <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="col-12">
+                                <p>
+                                    <strong>V. METAL COATING SERVICES</strong>
+                                    <br/>
+                                    GlassTech applies a long-lasting, nanocoating to metal which cures to a
+                                    9.5H
+                                    hardness. I understand the coating will leave a gloss-like finish which
+                                    adds
+                                    to the beauty of the restored metal and deepens the tint of the natural
+                                    metal approximately half of a shade. if a matte finish is preferred,
+                                    this
+                                    must be so stated in the quote before commencing work.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-muted">Customer Initials</span>
+                            <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="col-12">
+                                <p>
+                                    <strong>VI. METAL COATING WARRANTY DISCLOSURE</strong>
+                                    <br/>
+                                    Customer understands the nanocoating warranty and has received the care
+                                    and
+                                    maintenance instructions. In the event the coating is damaged or scuffed
+                                    by the customer during cleaning or maintenance, the warranty for the
+                                    damaged
+                                    SECTION (from weld to weld) is void. Repair work will be at the quoted
+                                    rate
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <span class="text-muted">Customer Initials</span>
+                            <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+            </div>
+            <p style="page-break-before:always;"/>
+            <div class="col-12">
+                <h5 class="text-center" style="background-color:#008000;width:100%%">
+                    CLIENT INFORMATION
+                </h5>
+            </div>
+            <div class="container" style="border: 2px solid green;">
+                <div class="row" style=" margin:5px 5px 5px 5px;">
+                    <div class="col-5" style="margin-right: 10px;">
+                        <strong>Client Full Name (or Company Name)</strong>
+                        <br/>
+                        <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                            <t t-if="doc.partner_id">
+                                <span t-field="doc.partner_id"/>
+                            </t>
+                            <t t-else="">
+                                <br/>
+                                <br/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="col-4" style="margin-right: 5px;">
+                        <strong>Contractor Contact</strong>
+                        <br/>
+                        <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                            <t t-if="doc.partner_id.phone">
+                                <span t-field="doc.partner_id.phone"/>
+                            </t>
+                            <t t-else="">
+                                <br/>
+                                <br/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="col-3" style="margin-right: 5px;">
+                        <strong>Agreement Number</strong>
+                        <br/>
+                        <div class="col-12" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                            <t t-if="doc.agreement_number">
+                                <span t-field="doc.agreement_number"/>
+                            </t>
+                            <t t-else="">
+                                <br/>
+                                <br/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-auto" style="border: 2px solid green;margin-top:10px">
+                <div class="col-12">
+                    <h5 class="text-center"
+                        style="background-color:#008000;width:100%% ;border: 2px solid green; ">
+                        TERMS AND CONDITIONS OF SALE
+                    </h5>
+                </div>
+                <div class="row" style="font-size: x-small;">
+                    <div class="col-6" style="margin:0px 5px 0px 15px">
+                        <div class="col-12">
+                            <p>SCAR, LLC, d/b/a “Glasstech” and/or “Scratch Masters” (“Company”) proposes to
+                                provide the
+                                services indicated herein to Customer at the Job Location (hereinafter the
+                                “Project”) for the price specified based upon the terms and conditions
+                                contained on the front and back side of this proposal. This proposal shall
+                                be effective for a period of 30 days from presentation by Company
+                                to Customer. Customer’s signature hereon and delivery to the Company within
+                                30 days from
+                                presentation shall constitute acceptance of the Company’s proposal and
+                                effectuate a binding
+                                contract between the parties upon the terms stated on this agreement which
+                                includes the the
+                                following terms and conditions on the reverse hereof:
+                            </p>
+
+                            <p>
+                                <strong>2. LIMITED WARRANTY:</strong>
+                                <br/>
+                                (a) Absolutely no warranty is given by Company to Customer against glass
+                                breakage which
+                                may occur during the glass restoration process. Provided that the glass
+                                being restored
+                                does not break during the glass restoration process, Company warrants the
+                                glass
+                                restoration process to the limited extent that the glass restored will be
+                                free of haze,
+                                polishing marks, patterns and residue at the time of the completion of the
+                                Job only. The
+                                Company does not warrant that the glass will be free of distortions in the
+                                area worked
+                                on unless otherwise noted in writing by the Company. Company’s liability
+                                under this
+                                warranty is limited to the cost of labor and materials necessary to
+                                eliminate the glass of
+                                haze, polishing marks and patterns, and if applicable, distortion in the
+                                area worked on,
+                                subject to the limitation and release of the Company’s liability for glass
+                                breakage during
+                                the process by Customer hereunder.
+                                (b) Company warrants the NanoTect coating on treated glass, metal or other
+                                surfaces to
+                                remain hydrophobic (water repellant) and not haze, chip, crack or peel for a
+                                period of five (5) years from the data of application, except that the
+                                NanoTect coating on treated glass windshield surfaces of automobiles, marine
+                                vessels, RVs and other motorized
+                                vehicles are warranted for a period of one (1) year from the date of
+                                application and the
+                                NanoTect coating on treated glass non-windshield surfaces are warranted for
+                                a period
+                                of two (2) years. NanoTect does not protect against water spots or staining
+                                as a result
+                                of lawn sprinklers or continual exposure to hard water and such spots or
+                                stains are
+                                excluded from this warranty. NanoTect does not protect glass from breakage,
+                                cracks,
+                                chips or other damage due to impact or other causes. There is no warranty
+                                against glass
+                                breakage, cracks, chips or other damage as a result of the NanoTect coating.
+                                Areas of
+                                glass or metal or other surfaces which are subject to considerable wear or
+                                abrasion are
+                                excluded from this warranty. Sources of abrasion include, but are not
+                                limited to wind-
+                                blown debris, sand, road debris, rocks, and improperly maintained windshield
+                                wipers.
+                                If known to the Company at time of this Agreement, such parts or areas will
+                                be noted
+                                separately by the Company and they will not be covered by this warranty. The
+                                NanoTect
+                                coating does not render the treated surface maintenance free. However,
+                                damage to the
+                                NanoTect coating due to the exposure of coated surfaces to harmful chemicals
+                                such
+                                as abrasive cleaners, polishing compounds, abrasive cleaning tools, high
+                                alkaline (pH
+                                of 10 or higher) or acidic cleaners (pH of 3 or lower), petroleum solvents,
+                                aromatic and
+                                chlorinated solvents, ketones, esters, lacquer thinner, paint remover or
+                                other similar
+                                chemicals is excluded from this warranty. Customer must maintain and keep
+                                the treated
+                                surface clean and not subject the treated surface to wear and abrasion in
+                                order to realize
+                                the proper appearance and performance of the treated surface. Customer’s
+                                failure to
+                                keep the treated surface clean, improperly cleaning or exposing the treated
+                                surface to
+                                harmful solvents, cleaners or other chemicals or subjecting the treated
+                                surface to wear
+                                or abrasion will void this warranty. Company’s liability under this warranty
+                                is limited to the
+                                cost of preparation and reapplication of the NanoTect coating to the
+                                previously treated
+                                area affected only and does not include the cost of repair or replacement of
+                                any treated
+                                product.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6" style="padding-right:20px">
+                        <div class="col-12">
+                            <p>
+                                <strong>1. PAYMENT TERMS:</strong>
+                                <br/>
+                                Unless otherwise noted on the front side of this agreement, Customer shall
+                                pay Company (i) an
+                                initial deposit of ( ) percent of the total cost, plus sales tax, to Company
+                                upon
+                                signing this Agreement, and (ii) the remaining ( ) percent of the total
+                                cost, plus
+                                sales tax, upon Company’s completion of the Project. Balances which remain
+                                unpaid over ten
+                                (10) days from the date due shall accrue interest at the rate of 1.5% per
+                                month until paid in full . All payments to be made under this Agreement
+                                shall be due in Company's offices locate in Palm Beach County, Florida. No
+                                payments due Company hereunder are contingent upon Customer’s receipt of
+                                payment from any third-party. Customer shall be liable to make payment
+                                to Company for all amounts accruing hereunder regardless of Customer’s
+                                status as an agent for
+                                a disclosed principal, if applicable.
+                                <br/>
+                                <strong>FITNESS FOR A PARTICULAR PURPOSE, OR ANY IMPLIED WARRANTIES ARISING
+                                    FROM
+                                    COURSE OF DEALING OR PERFORMANCE. THERE ARE NO WARRANTIES, EXPRESS OR
+                                    IMPLIED, WHICH EXIST OR EXTEND BEYOND THE WRITTEN TERMS OF THIS
+                                    AGREEMENT.
+                                </strong>
+                                <br/>
+                                <strong>3. LIMITATION OF LIABILITY:</strong>
+                                <br/>
+                                In no event will Company be liable to Customer or to any third party for
+                                special, collateral,
+                                exemplary, indirect, incidental, or consequential damages or any kind
+                                whether such damages
+                                occurred prior or subsequent to, or are alleged as a result of tortuous
+                                conduct or breach of any
+                                of the provisions of this Agreement, even if the Customer had been advised
+                                of the possibility of
+                                such damages.
+                                <br/>
+                                <strong>4. FORCE MAJURE:</strong>
+                                <br/>
+                                Company shall not be responsible for delays in the completion of the Project
+                                or for any damages
+                                or additional fees and costs caused by the acts or omissions of the Customer
+                                or Customer’s
+                                employees, agents, or principals, damage to the Project caused by Customer,
+                                any contractor,
+                                subcontractor or any other third-party, failure of a contractor,
+                                subcontractor, decorator or any
+                                other third-party to complete work which is necessary to be completed before
+                                Company’s
+                                performance or completion of the Project, change orders requested by
+                                Customer, failure of the
+                                Customer or other responsible third-party to make a payment to Company when
+                                due, acts of
+                                God, stormy or inclement weather, or other causes beyond Company’s
+                                reasonable control.
+                                <br/>
+                                <strong>5. ENTIRE AGREEMENT.</strong>
+                                <br/>
+                                This Agreement superceeds all prior negotiations, discussions, agreements,
+                                representations and
+                                understandings, whether oral or written, between the Customer and Company
+                                and constitutes the entire agreement with regard to the subject matter here
+                                to, and shall not be modified, amended, or superseded without the express
+                                written consent of the Customer and Company.
+                                <br/>
+                                <strong>6. ASSIGNMENT:</strong>
+                                <br/>
+                                The terms of this Agreement, including any warranties provided for herein,
+                                may not be assigned
+                                by the Customer to any third-party without the written consent of the
+                                Company, which consent
+                                may be withheld by Company within its sole discretion. Any attempted
+                                assignment of this
+                                Agreement without the written consent of the Company shall be void. No
+                                warranty hereunder
+                                is transferrable.
+                                <br/>
+                                <strong>7. CUSTOMER’S DEFAULT:</strong>
+                                <br/>
+                                Customer agrees to pay Company interest of 1.5% per month on all balances
+                                which remain
+                                unpaid over ten (10) days form the date due until the overdue balance is
+                                paid in full. Customer
+                                also agrees to pay reasonable attorney=s fees and costs through trial,
+                                appeals and all
+                                postjudgment collection proceedings which are incurred by Company in
+                                collecting any overdue
+                                balance owed by Customer.
+                                <br/>
+                                <strong>8. DISPUTE RESOLUTION:</strong>
+                                <br/>
+                                This Agreement shall be construed and enforced in accordance with Florida
+                                law, regardless of its confict of laws principlas. Venue for the resolution
+                                of any disputes arising here under shall lie exclusively in Palm Beach
+                                County, Florida.
+                                <br/>
+                                <strong>9. MODIFICATION:</strong>
+                                <br/>
+                                No modification of this Agreement, including the modification of any
+                                existing warranty or the creation of any additional warranty, shall ocuur
+                                unless the term(s) modified are set forth in a writing signed by the
+                                Customer and Company.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row" style="text-align: center">
+                    <div class="col-12">
+                        <strong>I have read, agree and hereby accept the terms and
+                            conditions
+                            set forth in this
+                            agreement.
+                        </strong>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-7">
+                        <div class="col-auto" style="margin-left: 80px;margin-right: 80px;">
+                            <span>Customer Signature</span>
+                            <br/>
+                            <div class="col-12"
+                                 style="border-radius: 0rem;border: 2px solid #ced4da;width:100%">
+                                <t t-if="doc.signature">
+                                    <span t-field="doc.signature" t-options='{"widget": "image"}'/>
+                                </t>
+                                <t t-else="">
+                                    <br/>
+                                    <br/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="col-12" style="margin-right: 80px;margin-left: 10px;">
+                            <span>Signature Date</span>
+                            <br/>
+                            <div class="col-8" style="border-radius: 0rem;border: 2px solid #ced4da;">
+                                <t t-if="doc.signed_on">
+                                    <span t-field="doc.signed_on"
+                                          t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+                                </t>
+                                <t t-else="">
+                                    <br/>
+                                    <br/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="report_service_agreement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="glass_tech.report_glass_tech_sale_order"/>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>
