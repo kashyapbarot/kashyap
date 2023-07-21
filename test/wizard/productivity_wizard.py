@@ -30,9 +30,9 @@ class CustomSaleOrder(models.TransientModel):
         obj_mrp = self.env['mrp.workcenter.productivity']
         obj = obj_mrp.search([('user_id', '=', current_user_selected.id)])
         if not obj:
-            view_id = self.env.ref('test.view_custom_productivity_wizard_form1').id
+            view_id = self.env.ref('test.view_custom_productivity_wizard_form').id
             return {
-                'name': 'record',
+                'name': 'create user',
                 'view_type': 'form',
                 'view_mode': 'form',
                 'views': [(view_id, 'form')],
@@ -46,10 +46,9 @@ class CustomSaleOrder(models.TransientModel):
             }
         elif obj and obj.date_start and not obj.date_end:
             date_start = obj.date_start
-            print(date_start)
-            view_id = self.env.ref('test.view_custom_productivity_wizard_form2').id
+            view_id = self.env.ref('test.view_custom_productivity_wizard_form').id
             return {
-                'name': 'record',
+                'name': 'user log out',
                 'view_type': 'form',
                 'view_mode': 'form',
                 'views': [(view_id, 'form')],

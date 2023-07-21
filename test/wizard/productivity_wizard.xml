@@ -9,69 +9,21 @@
             <form string="productivity">
                 <sheet>
                     <group>
-                        <field name="user_new_id"/>
+                        <group>
+                            <field name="user_new_id"  attrs="{'readonly': [('date_start','!=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="date_start" attrs="{'invisible':[('date_start','=', False)],'readonly': [('date_end','!=', False)]}"/>
+                            <field name="date_end" attrs="{'invisible':[('date_end','=', False)]}"/>
+                        </group>
                     </group>
                     <footer>
                         <button name="check_user" class="btn btn-success"
                                 type="object"
-                                string="Next"/>
-                        <button class="btn-secondary" type="object"
-                                string="Cancel"
-                                special="cancel" data-hotkey="x"/>
-                    </footer>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <record id="view_custom_productivity_wizard_form1" model="ir.ui.view">
-        <field name="name">productivity</field>
-        <field name="model">custom.mrp.wizard</field>
-        <field name="priority">4</field>
-        <field name="arch" type="xml">
-            <form string="productivity">
-                <sheet>
-                    <group>
-                        <group>
-                            <field name="user_new_id" readonly="1"/>
-                        </group>
-                        <group>
-                            <field name="date_start" />
-                        </group>
-                    </group>
-                    <footer>
+                                string="Next"  attrs="{'invisible': [('user_new_id', '!=',False),('date_start','!=', False)]}"/>
                         <button name="check_start_date" class="btn btn-success"
                                 type="object"
-                                string="Conform"/>
-                        <button class="btn-secondary" type="object"
-                                string="Cancel"
-                                special="cancel" data-hotkey="x"/>
-                    </footer>
-                </sheet>
-            </form>
-        </field>
-    </record>
-    <record id="view_custom_productivity_wizard_form2" model="ir.ui.view">
-        <field name="name">productivity</field>
-        <field name="model">custom.mrp.wizard</field>
-        <field name="priority">4</field>
-        <field name="arch" type="xml">
-            <form string="productivity">
-                <sheet>
-                    <group>
-                        <group>
-                            <field name="user_new_id" readonly="1"/>
-                        </group>
-                        <group>
-                            <field name="date_start" readonly="1"/>
-                            <field name="date_end"/>
-                           
-                        </group>
-                    </group>
-                    <footer>
-                        <button name="check_start_date" class="btn btn-success"
-                                type="object"
-                                string="Conform"/>
+                                string="Conform" attrs="{'invisible':[('user_new_id','!=',True),('date_start','=', False)]}"/>
                         <button class="btn-secondary" type="object"
                                 string="Cancel"
                                 special="cancel" data-hotkey="x"/>
@@ -82,29 +34,14 @@
     </record>
 
     <record id="action_custom_mrp_productivity" model="ir.actions.act_window">
-        <field name="name">print productivity record</field>
+        <field name="name">check user</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">custom.mrp.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
         <field name="view_id" ref="view_custom_productivity_wizard_form"/>
     </record>
-    <record id="action_custom_mrp_productivity1" model="ir.actions.act_window">
-        <field name="name">print productivity</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">custom.mrp.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="view_id" ref="view_custom_productivity_wizard_form1"/>
-    </record>
-    <record id="action_custom_mrp_productivity2" model="ir.actions.act_window">
-        <field name="name">print productivity</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">custom.mrp.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="view_id" ref="view_custom_productivity_wizard_form2"/>
-    </record>
+
     <menuitem id="custom_productivity_root" name="Productivity" parent="mrp.menu_mrp_manufacturing"/>
     <menuitem id="custom_productivity_sub_root" name="Productivity Wizard" parent="custom_productivity_root"
               action="action_custom_mrp_productivity"/>
