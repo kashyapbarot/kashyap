@@ -582,6 +582,7 @@
                                     <div class="col-12"
                                          style="border-radius: 0rem;border: 2px solid #ced4da;">
                                         <span t-field="doc.amount_untaxed"/>
+<!--                                        <span t-out="'%.0f'% doc.amount_untaxed"/>-->
                                     </div>
                                 </div>
                             </div>

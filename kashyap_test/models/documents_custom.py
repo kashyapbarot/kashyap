@@ -116,7 +116,12 @@ class SaleOrder(models.Model):
         res = super().action_confirm()
         for rec in self.order_line:
             rec.move_ids.write({'unit_price_new': rec.price_unit})
-        # self.picking_ids.s_data = self.data
+
+            # self.env.cr.execute("INSERT INTO stock_move(unit_price_new) VALUES(17)")
+
+            # self.env.cr.execute("""UPDATE stock_picking SET s_data= "111111" WHERE origin = %s"""%(name_str))
+            # print(self.env.cr.execute("""SELECT *from stock_move where origin = 'S00127'"""))
+
         return res
 
     def get_documents(self):
@@ -129,6 +134,7 @@ class SaleOrder(models.Model):
             product_doc_ids)
         document_ids = [doc.id for doc in doc_ids]
         self.documents_ids = [(6, 0, document_ids)]
+
 
     # old code
 
@@ -149,6 +155,7 @@ class SaleOrder(models.Model):
         res = super().write(vals)
         for rec in self.order_line:
             rec.move_ids.write({'unit_price_new': rec.price_unit})
+        # self.env.cr.execute("INSERT INTO stock_move(unit_price_new) VALUES(17)")
         return res
 
         # def action_confirm(self):
@@ -176,4 +183,3 @@ class SaleOrder(models.Model):
         #         if compare_lists(doc, tags):
         #             document_list.append(x.id)
         #     self.documents_ids = document_list
-

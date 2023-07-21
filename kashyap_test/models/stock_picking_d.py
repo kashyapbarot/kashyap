@@ -23,5 +23,14 @@ class StockMove(models.Model):
 
     def _get_new_picking_values(self):
         res = super()._get_new_picking_values()
+        # var = self.group_id.sale_id.data
+        # name_str = self.group_id.sale_id.name
+        # print(var, name_str)
         res.update({'s_data': self.group_id.sale_id.data})
+        # self.env.cr.execute("""INSERT INTO stock_picking(s_data) VALUES('rahul')""")
+
+        # self.env.cr.execute("""UPDATE stock_picking SET s_data= '%s' WHERE origin = '%s'""" % (self.group_id.sale_id.data, self.group_id.sale_id.name))
+        # self.env.cr.execute("""SELECT *from stock_picking WHERE origin = %s"""%(name_str))
+        # var1=self.env.cr.fetchall()
+        # print(var1)
         return res
