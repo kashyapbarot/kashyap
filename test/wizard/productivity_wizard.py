@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Product Manufacturer Model"""
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from odoo import models, fields, api
 
 
@@ -30,53 +30,26 @@ class CustomSaleOrder(models.TransientModel):
         obj_mrp = self.env['mrp.workcenter.productivity']
         obj = obj_mrp.search([('user_id', '=', current_user_selected.id),
                               ('date_end', '=', None)])
-        obj1 = obj_mrp.search_count(
-            [('user_id', '=', current_user_selected.id),
-             ('date_end', '!=', None)])
-        # print("user records----------------",obj1)
-
         if not obj:
             action = \
                 self.env.ref('test.action_custom_mrp_productivity').read()[0]
-            # return {
-            #     'name': 'create user',
-            #     'view_type': 'form',
-            #     'view_mode': 'form',
-            #     'res_model': 'custom.mrp.wizard',
-            #     'type': 'ir.actions.act_window',
-            #     'target': 'new',
-            #     'action_id': action.id,
-            #     'context': {'default_date_start': datetime.now(),
-            #                 'default_user_new_id': self.user_new_id.id},
-            #
-            # }
             action.update({'views': [[False, 'form']],
                            'context': {'default_date_start': datetime.now(),
                                        'default_user_new_id': self.user_new_id.id}})
             return action
-
-        elif obj and obj.date_start and not obj.date_end:
-            date_start = obj.date_start
-            action = \
-                self.env.ref('test.action_custom_mrp_productivity').read()[0]
-            # return {
-            #     'name': 'user log out',
-            #     'view_type': 'form',
-            #     'view_mode': 'form',
-            #     'action_id': action.id,
-            #     'res_model': 'custom.mrp.wizard',
-            #     'type': 'ir.actions.act_window',
-            #     'target': 'new',
-            #     'context': {'default_date_start': date_start,
-            #                 'default_date_end': datetime.now(),
-            #                 'default_user_new_id': self.user_new_id.id},
-            #
-            # }
-            action.update({'views': [[False, 'form']],
-                           'context': {'default_date_start': date_start,
+        elif obj:
+            for rec in obj:
+                if rec and rec.date_start and not rec.date_end:
+                    date_start = rec.date_start
+                    action = \
+                        self.env.ref(
+                            'test.action_custom_mrp_productivity').read()[0]
+                    action.update({'views': [[False, 'form']],
+                                   'context': {
+                                       'default_date_start': date_start,
                                        'default_date_end': datetime.now(),
                                        'default_user_new_id': self.user_new_id.id}})
-            return action
+                    return action
 
     def check_start_date(self):
         current_user_selected = self.user_new_id
@@ -93,9 +66,23 @@ class CustomSaleOrder(models.TransientModel):
                             'loss_id': workcenter_loss,
                             })
         elif obj:
-            for rec in obj:
-                obj = rec
-            if obj and obj.date_start and not obj.date_end:
-                self.date_start = obj.date_start
-                self.user_new_id = self.user_new_id
-                obj.write({'date_end': self.date_end})
+            check_open_rec = self.env[
+                'mrp.workcenter.productivity'].search_count(
+                [('user_id', '=', current_user_selected.id),
+                 ('date_end', '=', None)])
+            obj.write({'date_end': self.date_end})
+            n = obj.mapped('date_start')
+            k = obj.mapped('date_end')
+            new_start_date = min(n)
+            start_date_list = [time.time() for time in n]
+            end_date_list = [time.time() for time in k]
+            start_date_time = min(start_date_list)
+            end_date_time = max(end_date_list)
+            start = datetime.strptime(str(start_date_time), "%H:%M:%S")
+            end = datetime.strptime(str(end_date_time), "%H:%M:%S")
+            difference = end - start
+            p = (difference.total_seconds()) / check_open_rec
+            for i in obj.sorted(key='date_start'):
+                end_date = new_start_date + timedelta(seconds=p)
+                i.write({'date_end': end_date, 'date_start': new_start_date})
+                new_start_date = end_date
