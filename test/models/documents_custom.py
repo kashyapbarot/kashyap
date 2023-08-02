@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 
 class DocumentsCustom(models.Model):
@@ -68,6 +68,36 @@ class SaleOrder(models.Model):
                 order.is_mto_and_m = True
             else:
                 order.is_mto_and_m = False
+
+    def action_sale_order(self):
+        count_record = self.search([('state', '=', 'draft')])
+        for rec in count_record:
+            rec.state = 'sent'
+            # mail_template_id = self.env.ref("sale.email_template_edi_sale").id
+            # email_template = self.env['mail.template'].browse(mail_template_id)
+            # email_template.send_mail(rec.id, force_send=True)
+            mail_template = self.env.ref("sale.email_template_edi_sale")
+            if mail_template:
+                vals = {
+                    'model': 'sale.order',
+                    'res_id': rec.id,
+                    'template_id': mail_template.id if mail_template else None,
+                    'composition_mode': 'comment',
+                }
+                p = self.env['mail.compose.message'].with_context(
+                    default_use_template=bool(mail_template),
+                    mark_so_as_sent=True,
+                    proforma=self.env.context.get('proforma', False),
+                    force_email=True, mail_notify_author=True
+                ).create(vals)
+                update_values = \
+                    p._onchange_template_id(mail_template.id, 'comment',
+                                            'sale.order',
+                                            rec.id)[
+                        'value']
+                p.write(update_values)
+
+                p._action_send_mail()
 
 
 class StockRule(models.Model):

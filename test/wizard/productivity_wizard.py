@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Product Manufacturer Model"""
+"""Manufacturing Model"""
 
 from datetime import datetime, timedelta
 from odoo import models, fields, api
@@ -26,6 +26,7 @@ class CustomSaleOrder(models.TransientModel):
         required=False)
 
     def check_user(self):
+        """ check user in productivity list """
         current_user_selected = self.user_new_id
         obj_mrp = self.env['mrp.workcenter.productivity']
         obj = obj_mrp.search([('user_id', '=', current_user_selected.id),
@@ -52,6 +53,7 @@ class CustomSaleOrder(models.TransientModel):
                     return action
 
     def check_start_date(self):
+        """" set equal time for multiple  record with same user """
         current_user_selected = self.user_new_id
         obj_mrp = self.env['mrp.workcenter.productivity']
         obj = obj_mrp.search([('user_id', '=', current_user_selected.id),
@@ -71,18 +73,19 @@ class CustomSaleOrder(models.TransientModel):
                 [('user_id', '=', current_user_selected.id),
                  ('date_end', '=', None)])
             obj.write({'date_end': self.date_end})
-            n = obj.mapped('date_start')
-            k = obj.mapped('date_end')
-            new_start_date = min(n)
-            start_date_list = [time.time() for time in n]
-            end_date_list = [time.time() for time in k]
+            start_date = obj.mapped('date_start')
+            end_date = obj.mapped('date_end')
+            new_start_date = min(start_date)
+            start_date_list = [time.time() for time in start_date]
+            end_date_list = [time.time() for time in end_date]
             start_date_time = min(start_date_list)
             end_date_time = max(end_date_list)
             start = datetime.strptime(str(start_date_time), "%H:%M:%S")
             end = datetime.strptime(str(end_date_time), "%H:%M:%S")
             difference = end - start
-            p = (difference.total_seconds()) / check_open_rec
-            for i in obj.sorted(key='date_start'):
-                end_date = new_start_date + timedelta(seconds=p)
-                i.write({'date_end': end_date, 'date_start': new_start_date})
+            total_seconds = (difference.total_seconds()) / check_open_rec
+            for rec in obj.sorted(key='date_start'):
+                end_date = new_start_date + timedelta(seconds=total_seconds)
+                rec.write({'date_end': end_date, 'date_start': new_start_date})
                 new_start_date = end_date
+
