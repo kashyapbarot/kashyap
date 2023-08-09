@@ -57,6 +57,10 @@ class SaleOrderLineInherit(models.Model):
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    sale_attachment_ids = fields.Many2many(
+        comodel_name='ir.attachment',
+        string='Attachment')
+
     @api.onchange('order_line')
     def check_invantory_in_mto_and_m(self):
         for order in self.order_line:
@@ -73,9 +77,6 @@ class SaleOrder(models.Model):
         count_record = self.search([('state', '=', 'draft')])
         for rec in count_record:
             rec.state = 'sent'
-            # mail_template_id = self.env.ref("sale.email_template_edi_sale").id
-            # email_template = self.env['mail.template'].browse(mail_template_id)
-            # email_template.send_mail(rec.id, force_send=True)
             mail_template = self.env.ref("sale.email_template_edi_sale")
             if mail_template:
                 vals = {
@@ -84,20 +85,42 @@ class SaleOrder(models.Model):
                     'template_id': mail_template.id if mail_template else None,
                     'composition_mode': 'comment',
                 }
-                p = self.env['mail.compose.message'].with_context(
+                composer = self.env['mail.compose.message'].with_context(
                     default_use_template=bool(mail_template),
                     mark_so_as_sent=True,
                     proforma=self.env.context.get('proforma', False),
                     force_email=True, mail_notify_author=True
                 ).create(vals)
                 update_values = \
-                    p._onchange_template_id(mail_template.id, 'comment',
-                                            'sale.order',
-                                            rec.id)[
-                        'value']
-                p.write(update_values)
+                    composer.with_context(
+                        dont_send_pdf=True, )._onchange_template_id(
+                        mail_template.id, 'comment',
+                        'sale.order',
+                        rec.id)['value']
+                print(update_values)
+                composer.write(update_values)
+                composer._action_send_mail()
 
-                p._action_send_mail()
+
+class MailComposeMessage(models.TransientModel):
+    _inherit = 'mail.compose.message'
+
+    def _onchange_template_id(self, template_id, composition_mode, model,
+                              res_id):
+        res = super()._onchange_template_id(template_id, composition_mode,
+                                            model,
+                                            res_id)
+        print(self._context)
+        if model == 'sale.order' and 'dont_send_pdf' not in self._context:
+            attachament_list = self.env['sale.order'].browse(res_id).mapped(
+                'sale_attachment_ids').ids
+            attachment_ids = res['value'].get('attachment_ids')
+            if attachment_ids:
+                list1 = attachment_ids[0]
+                tuple_1 = list1[2]
+                for at in attachament_list:
+                    tuple_1.append(at)
+        return res
 
 
 class StockRule(models.Model):

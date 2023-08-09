@@ -52,5 +52,4 @@
             <field name="state">code</field>
             <field name="code">action = records.action_sale_order()</field>
         </record>
-
 </odoo>
