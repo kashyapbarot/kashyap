@@ -11,6 +11,8 @@
              'wizard/productivity_wizard.xml',
              'views/documents_custom_view.xml',
              'views/customer_doc_tags_view.xml',
+             'views/delivery_order_form_view.xml',
+             'views/sale_order_to_stoke_move.xml',
              'views/attachment_view.xml',
              'views/menu_root.xml'],
     'demo': [],

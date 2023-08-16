@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _, Command
 
 
 class DocumentsCustom(models.Model):
@@ -102,6 +102,7 @@ class SaleOrder(models.Model):
                 composer._action_send_mail()
 
 
+
 class MailComposeMessage(models.TransientModel):
     _inherit = 'mail.compose.message'
 
@@ -110,8 +111,7 @@ class MailComposeMessage(models.TransientModel):
         res = super()._onchange_template_id(template_id, composition_mode,
                                             model,
                                             res_id)
-        print(self._context)
-        if model == 'sale.order' and 'dont_send_pdf' not in self._context:
+        if model == 'sale.order' or 'stock.picking' or 'stock.move' and 'dont_send_pdf' not in self._context:
             attachament_list = self.env['sale.order'].browse(res_id).mapped(
                 'sale_attachment_ids').ids
             attachment_ids = res['value'].get('attachment_ids')
@@ -138,3 +138,23 @@ class StockRule(models.Model):
                                         company_id, values,
                                         bom=values.get(
                                             'move_dest_ids').sale_line_id.bom_new_id or bom)
+
+
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
+    # _inherits = ['mail.thread', 'mail.activity.mixin']
+
+    stock_attachment_ids = fields.Many2many(
+        comodel_name='ir.attachment',
+        string='attachment', index=True, readonly=True, store=True,
+        tracking=True)
+
+
+class StockMove(models.Model):
+    _inherit = 'stock.move'
+
+    def _get_new_picking_values(self):
+        res = super()._get_new_picking_values()
+        res.update({
+            'stock_attachment_ids': self.group_id.sale_id.sale_attachment_ids})
+        return res
