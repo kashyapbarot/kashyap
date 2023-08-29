@@ -23,6 +23,10 @@ class DocTagMaster(models.Model):
     _description = 'Doc Tag Master'
 
     name = fields.Char(string="Name")
+    user_id = fields.Many2one(
+        comodel_name='res.users',
+        string='User',
+        default=lambda a: a.env.user)
 
 
 class ProductTemplate(models.Model):
@@ -102,7 +106,6 @@ class SaleOrder(models.Model):
                 composer._action_send_mail()
 
 
-
 class MailComposeMessage(models.TransientModel):
     _inherit = 'mail.compose.message'
 
@@ -157,4 +160,12 @@ class StockMove(models.Model):
         res = super()._get_new_picking_values()
         res.update({
             'stock_attachment_ids': self.group_id.sale_id.sale_attachment_ids})
+        return res
+
+
+class ProductLabelLayout(models.TransientModel):
+    _inherit = 'product.label.layout'
+
+    def _prepare_report_data(self):
+        res = super()._prepare_report_data()
         return res

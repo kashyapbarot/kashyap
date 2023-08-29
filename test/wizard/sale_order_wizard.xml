@@ -8,7 +8,7 @@
             <form string="productivity">
                 <sheet>
                     <group>
-                        <field name="sale" widget="binary"
+                        <field name="file" widget="binary"
                                filename="sale" />
                     </group>
                     <footer>

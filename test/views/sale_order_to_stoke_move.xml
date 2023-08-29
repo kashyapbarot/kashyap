@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <odoo>
-    <record id="view_order_form_inherit_chatter_copy_in_sale"
-            model="ir.ui.view">
-        <field name="name">sale order form inherit copy chatter sale</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//button[@name='action_draft']" position="after">
-                <button name="action_chatter_copy"
-                        string="Copy Chatter" class="btn-primary"
-                        type="object"/>
-            </xpath>
-        </field>
-    </record>
+    <template id="report_saleorder_document_inherit_sale_management"
+              inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t/t/t[3]/div[@t-field='doc.partner_id']"
+               position="before">
+            <div t-if="doc.partner_id" t-field="doc.partner_id.name"
+                 t-options="{'widget': 'barcode', 'width': 600, 'height': 120, 'img_style': 'max-height:50pt;max-width:100%;', 'img_align': 'center'}"/>
+            <div style="padding:0; margin:0px; padding-top:10px; padding-bottom:10px; text-align:center;">
+            </div>
+             <div class="col-3 mt-1">
+                    <img t-att-src="'/report/barcode/QR/'+doc.name" style="width:150px;height:150px;" alt="Barcode"/>
+             </div>
+        </xpath>
+    </template>
 </odoo>

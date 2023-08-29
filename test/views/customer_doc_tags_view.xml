@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="customer_tags_act_view_tree" model="ir.ui.view">
+        <field name="name">customer tags view tree</field>
+        <field name="model">doc.tag.master</field>
+        <field name="arch" type="xml">
+            <tree string="customer_tags_act__tree">
+                <field name="name"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="customer_tags_view_form" model="ir.ui.view">
+        <field name="name">customer tags view form</field>
+        <field name="model">doc.tag.master</field>
+        <field name="arch" type="xml">
+            <form string="Tags Name">
+                <sheet>
+                    <group string="Tag">
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="user_id" groups="test.group_tags_admin"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
     <record id="customer_tags_act_window" model="ir.actions.act_window">
         <field name="name">Customer Tags</field>
         <field name="type">ir.actions.act_window</field>
@@ -21,11 +49,12 @@
                    position="before">
                 <field name="bom_new_id"
                        domain="[('product_tmpl_id','=',product_template_id)]"/>
-                <field name ="is_mto_and_m" invisible="1"/>
+                <field name="is_mto_and_m" invisible="1"/>
             </xpath>
             <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='bom_new_id']"
                    position="attributes">
-                <attribute name="attrs">{'readonly': [('is_mto_and_m', '=',False)]}
+                <attribute name="attrs">{'readonly': [('is_mto_and_m',
+                    '=',False)]}
                 </attribute>
             </xpath>
         </field>

@@ -1,11 +1,31 @@
 # -*- coding: utf-8 -*-
 """Product Manufacturer Model"""
 
-from datetime import datetime, timedelta
-from odoo import models, fields, api, _
 import xlrd
+import logging
+import tempfile
+import binascii
+from odoo import api, fields, models, tools, _
+from odoo.exceptions import Warning, UserError, ValidationError
 
-from odoo.exceptions import UserError
+_logger = logging.getLogger(__name__)
+
+try:
+    import csv
+except ImportError:
+    _logger.debug('Cannot `import csv`.')
+try:
+    import xlwt
+except ImportError:
+    _logger.debug('Cannot `import xlwt`.')
+try:
+    import cStringIO
+except ImportError:
+    _logger.debug('Cannot `import cStringIO`.')
+try:
+    import base64
+except ImportError:
+    _logger.debug('Cannot `import base64`.')
 
 
 class CustomSaleOrder(models.TransientModel):
@@ -13,52 +33,69 @@ class CustomSaleOrder(models.TransientModel):
     _name = 'sale.xlsx.wizard'
     _description = 'custom sale order wizard'
 
-    sale = fields.Binary(
+    file = fields.Binary(
         string='import Sale orders',
         required=True)
 
     def import_journal_sale_entry(self):
-        try:
-            book = xlrd.open_workbook(filename=self.sale)
-            print(book)
-        except FileNotFoundError:
-            raise UserError(
-                'No such file or directory found. \n%s.' % self.sale)
-        except xlrd.biffh.XLRDError:
-            raise UserError('Only excel files are supported.')
-        for sheet in book.sheets():
+        if not self.file:
+            raise ValidationError(_("Please Upload File to Import Employee !"))
+        else:
             try:
-                line_vals = []
-                if sheet.name == 'Sheet1':
-                    for row in range(sheet.nrows):
-                        if row >= 1:
-                            row_values = sheet.row_values(row)
-                            vals = self._create_sale_journal_entry(row_values)
-                            line_vals.append((0, 0, vals))
-                if line_vals:
-                    self.env['sale.order'].create({
-                        'line_ids': line_vals
-                    })
-            except IndexError:
-                pass
+                file = tempfile.NamedTemporaryFile(delete=False,
+                                                   suffix=".xlsx")
+                file.write(binascii.a2b_base64(self.file))
+                file.seek(0)
+                values = {}
+                workbook = xlrd.open_workbook(file.name)
+                sheet = workbook.sheet_by_index(0)
+            except Exception:
+                raise ValidationError(_("Please Select Valid File Format !"))
 
-    def _create_sale_journal_entry(self, record):
-        line_ids = {
-            'activity_ids': record[0],
-            'company_id': record[1],
-            'create_date': record[2],
-            'partner_id': record[3],
-            'commitment_date': record[4],
-            'expected_date': record[5],
-            'invoice_status': record[6],
-            'name': record[7],
-            'team_id': record[8],
-            'user_id': record[9],
-            'state': record[10],
-            'tag_ids': record[11],
-            'amount_tax': record[12],
-            'amount_total': record[13],
-            'amount_untaxed': record[14],
-            'order_line': record[15],
+            for row_no in range(sheet.nrows):
+                val = {}
+                if row_no <= 0:
+                    fields = list(map(lambda row: row.value.encode('utf-8'),
+                                      sheet.row(row_no)))
+                else:
+                    line = list(map(lambda row: isinstance(row.value,
+                                                           bytes) and row.value.encode(
+                        'utf-8') or str(row.value), sheet.row(row_no)))
+                    print("line", line)
+                    values.update({
+                        'Order Reference': line[0],
+                        'Customer': line[1],
+                        'Pricelist': line[2],
+                        'Product': line[3],
+
+                    })
+                    res = self.create_sale_journal_entry(values)
+
+    def create_sale_journal_entry(self, values):
+        sale_order = self.env['sale.order']
+        partner_name = values.get('Customer')
+        sale_order_product = values.get('Product')
+
+        product = self.env['product.product'].search(
+            [('name', '=', sale_order_product)],
+            limit=1)
+        partner = self.env['res.partner'].search(
+            [('name', '=', partner_name)],
+            limit=1)
+        print(partner)
+        if not partner:
+            self.env['res.partner'].create({
+                'name': values.get('Customer'), })
+        vals = {
+            'name': values.get('Order Reference'),
+            'partner_id': partner.id,
+            'pricelist_id': self.env.ref("product.list0").id,
+            'order_line': [(0, 0, {
+                'product_id': product.id,
+                'product_uom_qty': 1,
+                'price_unit': 192,
+                'discount': 74.246,
+            })]
         }
-        return line_ids
+        res = sale_order.create(vals)
+        return res
