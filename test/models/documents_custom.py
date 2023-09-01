@@ -16,6 +16,15 @@ class DocumentsCustom(models.Model):
                                        related='attachment_id.datas')
     tag_ids = fields.Many2many(comodel_name='doc.tag.master', string='Tags')
     m_count = fields.Integer(compute="compute_m2m")
+    add_tag_ids = fields.One2many(
+        comodel_name='doc.tag.master',
+        inverse_name='add_tag_id',
+        string='Add tags',
+        required=False)
+    address_id = fields.Many2one(
+        comodel_name='res.users',
+        string='Customer',
+        required=False, default=lambda self: self.env.user)
 
 
 class DocTagMaster(models.Model):
@@ -27,6 +36,10 @@ class DocTagMaster(models.Model):
         comodel_name='res.users',
         string='User',
         default=lambda a: a.env.user)
+    add_tag_id = fields.Many2one(
+        comodel_name='documents.custom',
+        string='Add tag',
+        required=False)
 
 
 class ProductTemplate(models.Model):

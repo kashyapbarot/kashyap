@@ -37,7 +37,9 @@ class CustomSaleOrder(models.TransientModel):
                     for row in range(sheet.nrows):
                         if row >= 1:
                             row_values = sheet.row_values(row)
+                            print("row_values", row_values)
                             vals = self.create_sale_journal_entry(row_values)
+                            print("vals--", vals)
                             sale_line_vals.append((0, 0, vals))
                 if sale_line_vals:
                     partner = self.partner_id
@@ -50,15 +52,15 @@ class CustomSaleOrder(models.TransientModel):
                 pass
 
     def create_sale_journal_entry(self, record):
-        code = record[0]
+        name = record[0]
         print("code")
-        product_id = self.env['product.product'].search([('code', '=', code)],
-                                                        limit=1)
-        if not product_id:
-            raise UserError(_("There is no product with code %s.") % code)
+        product = self.env['product.product'].search([('name', '=', name)],
+                                                     limit=1)
+        if not product:
+            raise UserError(_("There is no product with code %s.") % name)
 
         order_line = {
-            'product_id': product_id.id,
+            'product_id': product.id,
             'name': record[1],
             'product_uom_qty': record[2],
             'price_unit': record[3],

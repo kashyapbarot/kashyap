@@ -7,6 +7,17 @@
             <tree string="customer_tags_act__tree">
                 <field name="name"/>
                 <field name="user_id"/>
+                <field name="add_tag_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="customer_tags_act_view_tree1" model="ir.ui.view">
+        <field name="name">customer tags view tree1</field>
+        <field name="model">doc.tag.master</field>
+        <field name="arch" type="xml">
+            <tree string="tag">
+                <field name="name"/>
+                <field name="add_tag_id"/>
             </tree>
         </field>
     </record>
@@ -19,15 +30,35 @@
                     <group string="Tag">
                         <group>
                             <field name="name"/>
+                            <field name="add_tag_id"/>
                         </group>
                         <group>
-                            <field name="user_id" groups="test.group_tags_admin"/>
+                            <field name="user_id"
+                                   groups="test.group_tags_admin"/>
                         </group>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
+    <record id="customer_tags_view_form1" model="ir.ui.view">
+        <field name="name">customer tags view form1</field>
+        <field name="model">doc.tag.master</field>
+        <field name="arch" type="xml">
+            <form string="Tags Name">
+                <sheet>
+                    <group string="Tag">
+                        <group>
+                            <field name="name"/>
+                            <field name="add_tag_id"/>
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <record id="customer_tags_act_window" model="ir.actions.act_window">
         <field name="name">Customer Tags</field>
         <field name="type">ir.actions.act_window</field>

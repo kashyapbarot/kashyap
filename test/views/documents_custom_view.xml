@@ -1,55 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <record id="custom_documents_tree_view" model="ir.ui.view">
-            <field name="name">documents.custom.tree</field>
-            <field name="model">documents.custom</field>
-            <field name="arch" type="xml">
-                <tree string="Tags">
-                    <field name="name"/>
-                    <field name="attachment_id"/>
-                    <field name="download_file_data" widget="binary"/>
-                    <field name="tag_ids" widget="many2many_tags"/>
-                </tree>
-            </field>
-        </record>
-        <record id="custom_documents_form_view" model="ir.ui.view">
-            <field name="name">documents.custom.form</field>
-            <field name="model">documents.custom</field>
-            <field name="arch" type="xml">
-                <form string="Tags">
-                    <header>
-                        <field name="tag_ids"/>
-                    </header>
-                    <sheet>.
+    <record id="custom_documents_tree_view" model="ir.ui.view">
+        <field name="name">documents.custom.tree</field>
+        <field name="model">documents.custom</field>
+        <field name="arch" type="xml">
+            <tree string="Tags">
+                <field name="name"/>
+                <field name="address_id"/>
+                <field name="attachment_id"/>
+                <field name="add_tag_ids" widget="many2many_tags"/>
+                <field name="download_file_data" widget="binary"/>
+                <field name="tag_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    <record id="custom_documents_form_view" model="ir.ui.view">
+        <field name="name">documents.custom.form</field>
+        <field name="model">documents.custom</field>
+        <field name="arch" type="xml">
+            <form string="Tags">
+                <header>
+                    <field name="tag_ids"/>
+                </header>
+                <sheet>.
+                    <group>
                         <group>
+                            <field name="address_id"
+                                   context="{'show_address': 1}"
+                                   options="{'always_reload': True}"/>
                             <field name="name"/>
-                            <field name="attachment_id"/>
-                            <field name="tag_ids" widget="many2many_tags"/>
                         </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+                        <group>
+                            <field name="attachment_id"/>
+                            <field name="tag_ids" widget="many2many_tags"/>j
+                            <field name="add_tag_ids"
+                                   context="{'form_view_ref': 'test.customer_tags_view_form1','tree_view_ref': 'test.customer_tags_act_view_tree1'}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-        <record id="custom_documents_act_window" model="ir.actions.act_window">
-            <field name="name">Custom Documents</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">documents.custom</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
-                    There is no examples click here to add new ModelTitle.
-                </p>
-            </field>
-        </record>
+    <record id="custom_documents_act_window" model="ir.actions.act_window">
+        <field name="name">Custom Documents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">documents.custom</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new ModelTitle.
+            </p>
+        </field>
+    </record>
 
-        <record id="action_run_ir_action_sale_mail" model="ir.actions.server">
-            <field name="name">Mark as QS with mail</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="sale.model_sale_order"/>
-            <field name="binding_model_id" ref="sale.model_sale_order"/>
-            <field name="binding_view_types">list</field>
-            <field name="state">code</field>
-            <field name="code">action = records.action_sale_order()</field>
-        </record>
+    <record id="action_run_ir_action_sale_mail" model="ir.actions.server">
+        <field name="name">Mark as QS with mail</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_sale_order()</field>
+    </record>
 </odoo>
