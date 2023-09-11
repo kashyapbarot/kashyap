@@ -6,7 +6,7 @@
     'summary': 'Test',
     'description': "test report",
     'category': 'Property',
-    'depends': ['base', 'sale'],
+    'depends': ['base', 'sale','stock'],
     'data': ['report/glass_tech_report_view.xml', 'views/res_partner_view.xml',
              'views/sale_order_views.xml'],
     'demo': [],

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tag_name_form_view" model="ir.ui.view">
+        <field name="name">tag name form</field>
+        <field name="model">doc.tag.name</field>
+        <field name="arch" type="xml">
+            <form string="Tag Name">
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="service_type"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="tag_name_tree_view" model="ir.ui.view">
+        <field name="name">tag name tree</field>
+        <field name="model">doc.tag.name</field>
+        <field name="arch" type="xml">
+            <tree string="Tag Name">
+                <field name="name"/>
+                <field name="service_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tag_name_act_window" model="ir.actions.act_window">
+        <field name="name">Tags name</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">doc.tag.name</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new ModelTitle.
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Tag Name" id="tag_name_menu"
+              parent="kasyap_test_root_menu" action="tag_name_act_window"/>
+</odoo>

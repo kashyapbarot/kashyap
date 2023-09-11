@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_stock_picking_shipment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <h2 class="text-center">
+                        <b>STRAIGHT BILL OF LADING</b>
+                    </h2>
+                    <h4 class="text-center">
+                        <b>ORIGINAL - NOT NEGOTIABLE</b>
+                    </h4>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <b>SHIPPER (FROM):</b>
+                                <br/>
+                                <div class="col-12"
+                                     style="border: 2px solid black;margin-top: 10px;padding:3px 3px 3px 5px;width:98%">
+                                    <t t-if="doc.company_id">
+                                        <span t-field="doc.company_id.name"/>
+                                        <br/>
+                                        <span t-field="doc.company_id.street"/>
+                                        <br/>
+                                        <span t-field="doc.company_id.city"/>
+                                        <br/>
+                                        <span t-field="doc.company_id.zip"/>
+                                        <br/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                                <div class="col-12">
+                                    <b>REFERENCE NQ.:</b>
+                                    <br/>
+                                    <div class="col-12"
+                                         style="border: 2px solid black;margin-top: 10px ;width:98%">
+                                        Delivery Ticket #
+                                        <t t-if="doc.carrier_tracking_ref"
+                                           t-esc="doc.carrier_tracking_ref"/>
+
+                                        <t t-else="">
+                                            <br/>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <b>Date:</b>
+                                <br/>
+                                <div class="col-12"
+                                     style="border: 2px solid black;margin: 10px 20px 10px 0px ;width:98%">
+                                    <t t-if="doc.scheduled_date"
+                                       t-esc="doc.scheduled_date"
+                                       t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </div>
+                                <div class="col-12">
+                                    <b>CARRIER INFORMATION:</b>
+                                    <br/>
+                                    <div class="col-12"
+                                         style="border: 2px solid black;margin: 4px 10px 4px 0px;width:98%">
+                                        <t t-if="doc.carrier_id.company_id">
+                                            <span t-if="doc.carrier_id.company_id"
+                                                  t-esc="doc.carrier_id.company_id.street"/>
+                                            <br/>
+                                            <span t-if="doc.carrier_id.company_id.street2"
+                                                  t-esc="doc.carrier_id.company_id.street2"/>
+                                            <br/>
+                                            <span t-if="doc.carrier_id.company_id.city"
+                                                  t-esc="doc.carrier_id.company_id.city"/>
+                                            ,<span
+                                                t-esc="doc.carrier_id.company_id.state_id.name"/>
+                                            (<span
+                                                t-esc="doc.carrier_id.company_id.zip"/>
+                                            )
+                                            <br/>
+                                            <span t-if="doc.carrier_id.company_id.country_id"
+                                                  t-esc="doc.carrier_id.company_id.country_id.name"/>
+                                        </t>
+                                        <t t-else="">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6" style="margin-right: 5px;">
+                                <b>CONSIGNEE (TO):</b>
+                                <br/>
+                                <div class="col-12"
+                                     style="border: 2px solid black;margin-top: 10px;width:98%">
+                                    <t t-if="doc.partner_id">
+                                        <span t-field="doc.partner_id.name"/>
+                                        <br/>
+                                        <span t-field="doc.partner_id.street"/>
+                                        <br/>
+                                        <span t-field="doc.partner_id.street2"/>
+                                        <br/>
+                                        <span t-field="doc.partner_id.city"/>(
+                                        <span t-field="doc.partner_id.zip"/>),
+                                        <span t-field="doc.partner_id.state_id.name"/>
+                                        <br/>
+                                        <span t-field="doc.partner_id.country_id.name"/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <b>BILL OR REMIT TO:</b>
+                                <br/>
+                                <div class="col-12"
+                                     style="border: 2px solid black;margin: 10px 20px 10px 0px;width:98%">
+                                    <t t-if="doc.company_id">
+                                        <span t-field="doc.company_id.name"/>
+                                        <br/>
+                                        <span t-field="doc.company_id.street"/>
+                                        <br/>
+                                        <span t-field="doc.company_id.city"/>
+                                        <br/>
+                                        <span t-field="doc.company_id.zip"/>
+                                        <br/>
+                                    </t>
+                                    <t t-else="">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6" style="margin-right: 5px;">
+                                <b>ISSUE OFFICE OR AGENT:</b>
+                                <br/>
+                                <div class="col-12"
+                                     style="border: 2px solid black;margin-top: 10px;width:98%">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <b>GENERAL COMMENTS:</b>
+                                <br/>
+                                <div class="col-12"
+                                     style="border: 2px solid black;margin: 10px 20px 10px 0px;width:98%">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align:center" ><b>PO# <t t-if ="doc.origin" t-out="doc.origin" /></b></div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">UNITS</th>
+                                    <th scope="col">HAZ"</th>
+                                    <th scope="col">DESCRIPTION</th>
+                                    <th scope="col">CLASS</th>
+                                    <th scope="col">WEIGHT</th>
+                                    <th scope="col">CHARGES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span t-esc="len(doc.move_ids_without_package.product_id)"/></td>
+                                    <td>N</td>
+                                    <td>Fabricated Spools</td>
+                                    <td/>
+                                    <td><span t-esc="doc.shipping_weight"/> <span t-esc="doc.weight_uom_name"/></td>
+                                    <td>$0.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-6"
+                                 style="border: 2px solid black;margin-top: 10px">
+                                <b>REMIT €.0.D. TO:
+                                    <br/>ADDRESS
+                                </b>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <div class="col-12"
+                                     style="border-top: 2px solid black;margin-top: 10px">
+                                    <p>mot shimpant maves betwasn bvG ports by
+                                        and
+                                        of water, the law requ 'ces that Lhe
+                                        bill
+                                        lading shall stale whether it is
+                                        carriers
+                                        shippers to Ihe coneignes without
+                                        recourse
+                                        ihe cone gor, the consignor aha CHARGES
+                                    </p>
+                                    <br/>
+                                    <div class="col-12"
+                                         style="border-top: 2px solid black">
+                                        <p>ule 41 of ine Uniform Fraignt
+                                            Cipsafica:
+                                            dl Mule of he Natanal Motor Freight
+                                            Cl
+                                            freight and ull other
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3"
+                                 style="border: 2px solid black;margin-top: 10px">
+                                <b>ON COLLECT ON DELIVERY SHIPMENTS THE LETTERS
+                                    <br/>
+                                    <br/>"COD" MUST APPEAR BEFORE CONSIGNEE'S
+                                    NAME - OR AS
+                                    <br/>
+                                    OTHERWISE PROVIDED IN [TEM 430, SEC. 1,
+                                    <br/>
+                                    COD AMT: $ 0.00
+                                </b>
+                                <br/>
+                                <div class="col-12"
+                                     style="border-top: 2px solid black;margin-top: 10px">
+                                    mot shimpant maves betwasn bvG ports by and
+                                    caer
+                                    of water, the law requ 'ces that Lhe bill
+                                    of
+                                    lading shall stale whether it is carriers
+                                    of
+                                    <br/>
+                                    <br/>
+
+                                    <div class="row"
+                                         style=" border-top:2px solid black;margin:0px 15px 0px 15px;">
+                                    </div>
+                                    <div class="text-center">
+                                        <b>Signature of Consignor</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3"
+                                 style="border: 2px solid black;margin-top: 10px;">
+                                <br/>
+                                <span style="padding-left:10px">
+                                    <b>C.O.D FEE.</b>
+                                </span>
+                                <br/>
+                                <span style="padding-left:10px">
+                                    <b>PREPAID</b>
+                                </span>
+                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                <input type="checkbox"/>
+                                <br/>
+                                <span style="padding-left:10px">
+                                    <b>COLLECT</b>
+                                </span>
+                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                <input type="checkbox"/>
+                                <br/>
+                                <div class="col-12"
+                                     style="border-top: 2px solid black;margin-top: 10px">
+                                    <br/>
+                                    <div class="row" style="padding-left:5px">
+                                        <div class="col-6">
+                                            <b>Total</b>
+                                            <br/>
+                                            Charge
+                                            <br/>
+                                        </div>
+                                        <div class="col-6"
+                                             style="padding:10px 10px 10px 10px">
+                                            <strong>$ 0.00</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-12"
+                                         style="border-top: 2px solid black;margin-top: 10px">
+                                        <div class="text-center">
+                                            <b>FREIGHT CHARGES</b>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-7"
+                                                 style="padding-left:5px">
+                                                <span style="font-size: x-small;">
+                                                    FREIGHT PREPAID
+                                                    <br/>
+                                                    except when box
+                                                    <br/>
+                                                    at right is checked
+                                                </span>&#160;&#160;&#160;&#160;&#160;&#160;
+                                                <input type="checkbox"/>
+                                            </div>
+                                            <div class="col-5">
+                                                <span style="font-size: x-small;">
+                                                    Check box if
+                                                    <br/>
+                                                    charges are to be
+                                                    <br/>
+                                                    collect
+                                                </span>&#160;&#160;&#160;&#160;&#160;&#160;<input
+                                                    type="checkbox"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row"
+                             style="border: 2px solid black;margin-top: 0px">
+                            <b>RECEIVED, sutjact to tha cimalfications and
+                                tariffs In effect an the date of Ihe sus of this
+                                Bill of lading, the property described sbave In
+                                spperent good order, except as noted and of
+                                contents of k marked, consigned
+                            </b>
+
+                        </div>
+                        <div class="row"
+                             style="border: 2px solid black;margin-top: 0px">
+                            <div class="col-12">
+                                <span style="font-size: x-small;padding:5px 5px 5px 5px">
+                                    material are properly classified,
+                                    described, packed, marked, and labeled,
+                                    and are in proper condition for
+                                    transportation according to the applicable
+                                    regulations of the Department of
+                                    Transportation.
+                                </span>
+                                <div class="row">
+                                    <div class="col-6">
+                                        SHIPPER
+                                    </div>
+                                    <div class="col-6">
+                                        CARRIER
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-6">
+                                        PER
+                                    </div>
+                                    <div class="col-3">
+                                        PER
+                                    </div>
+                                    <div class="col-3">
+                                        DATE
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-size: x-small;margin-top: 10px">
+                            <b>“MARK WITH “X" TO DEGIGNATE HAZARDOUS MATERIAL
+                                AB DEFINED IN TITLE 49 OF FEDERAL REGULATIONS,
+                            </b>
+                            <br/>
+                            <b>Pemmarient post-office address of shipper.</b>
+                        </div>
+                    </div>
+                    <p style="page-break-before:always;"/>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4"
+                                 style=" margin: 10px 20px 10px 0px">
+                                <div class="col-12">
+                                    <img t-if="doc.company_id.logo"
+                                         t-att-src="image_data_uri(doc.company_id.logo)"
+                                         style="max-height: 120px;max-width:230px"
+                                         alt="Logo"/>
+                                </div>
+                                <div class="col-12">
+                                    <br/>
+                                    <br/>
+                                    <b>3 QUALITY WAY
+                                        <br/>
+                                        GREENVILLE, SC 29605
+                                    </b>
+                                </div>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-4"
+                                             style="text-decoration: underline;">
+                                            <b>SHIP TO :</b>
+                                        </div>
+                                        <div class="col-8">
+                                            <b>Yates Construction
+                                                <br/>
+                                                “Contractor Gate # 2
+                                                <br/>
+                                                1400 W. Sth Street Gate 2
+                                                <br/>
+                                                Brunswick, GA 31520
+                                            </b>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-4"
+                                             style="text-decoration: underline;">
+                                            <br/>
+                                            <b>Attn :</b>
+                                        </div>
+                                        <div class="col-8">
+                                            <b>Roger Ellis
+                                                <br/>
+                                                830-613-5069
+                                                <br/>
+                                            </b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8"
+                                 style=" margin: 10px 20px 10px 0px">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h3>
+                                            <b>PACKING LIST</b>
+                                        </h3>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="row">
+                                            <div class="col-4"
+                                                 style="border: 2px solid black;">
+                                                10821
+                                            </div>
+                                            <div class="col-8"
+                                                 style="text-decoration: underline;margin: 0px 0px 0px 30px">
+
+                                                <div style="text-align: right;margin-right: 70px">
+                                                    DATE : 20/08/2023
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12"
+                                             style="text-decoration: underline;">
+                                            <br/>
+                                        </div>
+                                        <div class="row"
+                                             style="border-bottom: 2px solid black;margin: 10px 40px 10px 0px">
+                                            <div class="col-5">
+                                                <b>SHIPMENT #</b>
+                                            </div>
+                                            <div class="col-7">
+                                                <b>10258</b>
+                                            </div>
+                                        </div>
+                                        <div class="row"
+                                             style="border-bottom: 2px solid black;margin: 10px 40px 10px 0px">
+                                            <div class="col-5">
+                                                <b>PO #</b>
+                                            </div>
+                                            <div class="col-7">
+                                                <b>2020-10258</b>
+                                            </div>
+                                        </div>
+                                        <div class="row"
+                                             style="border-bottom: 2px solid black;margin: 10px 40px 10px 0px">
+                                            <div class="col-5">
+                                                <b>CUSTOMER :</b>
+                                            </div>
+                                            <div class="col-7">
+                                                <b>Yates Construction</b>
+                                            </div>
+                                        </div>
+                                        <div class="row"
+                                             style="border-bottom: 2px solid black;margin: 10px 40px 10px 0px">
+                                            <div class="col-5">
+                                                <b>SPOOL COUNT :</b>
+                                            </div>
+                                            <div class="col-7">
+                                                <b>41</b>
+                                            </div>
+                                        </div>
+                                        <div class="row"
+                                             style="border-bottom: 2px solid black;margin: 10px 40px 10px 0px">
+                                            <div class="col-5">
+                                                <b>TOTAL WEIGHT :</b>
+                                            </div>
+                                            <div class="col-7">
+                                                <b>20258</b>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <h6 style="text-decoration: underline;">
+                                                    FREIGHT CARRIER
+                                                </h6>
+                                                <div class="col-12"
+                                                     style="margin:10px 10px 10px 0px">
+                                                    Anderson Transportation
+                                                    &amp; Logistics
+                                                    <br/>
+                                                    830-613-5069
+                                                </div>
+                                            </div>
+                                            <div class="col-5"
+                                                 style="color: red;">
+                                                Trailre - Senn 1704
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered text-center" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <b>Product</b>
+                                    </th>
+                                    <th>
+                                        <b>Reserved</b>
+                                    </th>
+                                    <th>
+                                        <b>From</b>
+                                    </th>
+                                    <th>
+                                        <b>Done</b>
+                                    </th>
+<!--                                    <th scope="col">-->
+<!--                                        <b>RRev</b>-->
+<!--                                    </th>-->
+<!--                                    <th scope="col">-->
+<!--                                        <b>Priority</b>-->
+<!--                                    </th>-->
+<!--                                    <th scope="col">-->
+<!--                                        <b>Spec</b>-->
+<!--                                    </th>-->
+<!--                                    <th scope="col">-->
+<!--                                        <b>MatGroup</b>-->
+<!--                                    </th>-->
+<!--                                    <th scope="col">-->
+<!--                                        <b>wt{lb)</b>-->
+<!--                                    </th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.move_line_ids_without_package" t-as="product">
+                                    <td><span t-esc="product.product_id.display_name"/></td>
+                                    <td><span t-esc="product.reserved_uom_qty"/> </td>
+                                    <td><span t-esc="product.location_id.location_id.name"/>/<span t-esc="product.location_id.name"/> </td>
+                                    <td><span t-esc="product.qty_done"/> <span t-esc="product.product_uom_id.name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row" width="98%">
+                            <div class="col-4"
+                                 style="padding:5px 0px 5px 30px">
+                                <b>Infab Piping Services LLC</b>
+                            </div>
+                            <div class="col-8"
+                                 style="padding:5px 0px 5px 20px">
+                                <b>Anderson Transportation &amp; Logistics</b>
+                            </div>
+                        </div>
+                        <div class="row alignBottom" width="98%"
+                             style="border-bottom: 2px solid black;margin-top:20px;padding-bottom:3px">
+                            <div class="col-4">
+                                Loaded By:
+                            </div>
+                            <div class="col-4">
+                                Picked Up By:
+                            </div>
+                            <div class="col-4">
+                                Received By:
+                            </div>
+                        </div>
+                        <div class="row alignBottom"
+                             style="border-bottom: 2px solid black;margin-top:20px;padding-bottom:3px">
+                            <div class="col-4">
+                                Date:
+                            </div>
+                            <div class="col-4">
+                                Date:
+                            </div>
+                            <div class="col-4">
+                                Date:
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_stock_picking" model="report.paperformat">
+        <field name="name">Service Agreement A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">4</field>
+        <field name="margin_bottom">13</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_stock_picking" model="ir.actions.report">
+        <field name="name">Shipment</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">test.report_stock_picking_shipment</field>
+        <field name="report_file">test.report_stock_picking_shipment</field>
+        <field name="paperformat_id" ref="test.paperformat_stock_picking"/>
+        <field name="binding_model_id" ref="model_stock_picking"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

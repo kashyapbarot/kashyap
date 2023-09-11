@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="doc_tag_name1" model="doc.tag.name">
+            <field name="name">Yellow</field>
+            <field name="service_type">one</field>
+
+        </record>
+        <record id="doc_tag_name2" model="doc.tag.name">
+            <field name="name">Black</field>
+            <field name="service_type">two</field>
+        </record>
+        <record id="doc_tag_name3" model="doc.tag.name">
+            <field name="name">Green</field>
+            <field name="service_type">three</field>
+        </record>
+        <record id="doc_tag_name4" model="doc.tag.name">
+            <field name="name">Yellow</field>
+            <field name="service_type">four</field>
+        </record>
+        <record id="doc_tag_name5" model="doc.tag.name">
+            <field name="name">Pick</field>
+            <field name="service_type">one</field>
+        </record>
+        <record id="doc_tag_name6" model="doc.tag.name">
+            <field name="name">Grey</field>
+            <field name="service_type">two</field>
+        </record>
+    </data>
+</odoo>

@@ -9,7 +9,7 @@
             <xpath expr="//notebook" position="inside">
                 <page string="ATTACHMENT">
                     <group string="Attachment">
-                        <field name="stock_attachment_ids"
+                        <field name="stock_attachment_ids" readonly="0"
                                widget="many2many_tags" />
                     </group>
                 </page>

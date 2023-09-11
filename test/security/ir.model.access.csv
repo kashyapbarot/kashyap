@@ -3,3 +3,4 @@ test.access_documents_custom,access_documents_custom,test.model_documents_custom
 test.access_doc_tag_master,access_doc_tag_master,test.model_doc_tag_master,test.group_tags,1,1,1,1
 test.access_custom_mrp_wizard,access_custom_mrp_wizard,test.model_custom_mrp_wizard,base.group_user,1,1,1,1
 test.access_sale_xlsx_wizard,access_sale_xlsx_wizard,test.model_sale_xlsx_wizard,base.group_user,1,1,1,1
+test.access_doc_tag_name,access_doc_tag_name,test.model_doc_tag_name,base.group_user,1,1,1,1

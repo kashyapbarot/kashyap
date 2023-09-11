@@ -27,11 +27,26 @@ class DocumentsCustom(models.Model):
         required=False, default=lambda self: self.env.user)
 
 
+class DocTagName(models.Model):
+    _name = 'doc.tag.name'
+    _description = 'Doc Tag Name'
+
+    name = fields.Char(string="Name")
+    service_type = fields.Selection(string='Service Type',
+                                    selection=[('one', 'Long-term'),
+                                               ('two', 'Short-Term'),
+                                               ('three', 'Seasonal CHECK-UP'),
+                                               ('four', 'Other')],
+                                    required=False)
+
+
 class DocTagMaster(models.Model):
     _name = 'doc.tag.master'
     _description = 'Doc Tag Master'
 
     name = fields.Char(string="Name")
+    tag_name_id = fields.Many2one("doc.tag.name", string="Tag Name")
+
     user_id = fields.Many2one(
         comodel_name='res.users',
         string='User',
@@ -40,6 +55,10 @@ class DocTagMaster(models.Model):
         comodel_name='documents.custom',
         string='Add tag',
         required=False)
+
+    @api.onchange('tag_name_id')
+    def _onchange_name(self):
+        self.name = self.tag_name_id.name
 
 
 class ProductTemplate(models.Model):
