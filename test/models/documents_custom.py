@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+#pylint: disable=E0401,C0115,R0903,C0114,R1725,C0301,R0801,R0913,C0301,W0212,C0209
 
 from odoo import models, fields, api, _, Command
+from odoo.exceptions import UserError
 
 
 class DocumentsCustom(models.Model):
@@ -97,6 +99,12 @@ class SaleOrder(models.Model):
         comodel_name='ir.attachment',
         string='Attachment')
 
+    @api.onchange('sale_attachment_ids')
+    def _compute_pdf(self):
+        for rec in self.sale_attachment_ids:
+            if '.pdf' not in rec.display_name:
+                raise UserError(_('You can add only pdf'))
+
     @api.onchange('order_line')
     def check_invantory_in_mto_and_m(self):
         for order in self.order_line:
@@ -162,17 +170,17 @@ class StockRule(models.Model):
     _inherit = 'stock.rule'
 
     def _prepare_mo_vals(self, product_id, product_qty, product_uom,
-                         location_dest_id, name, origin, company_id, values,
+                         location_id, name, origin, company_id, values,
                          bom):
         # values.get('group_id').sale_id.order_line.bom_new_id
         # bom_new_id = values.get('move_dest_ids').sale_line_id.bom_new_id
         # res.update({'bom_id': bom_new_id.id})
         return super()._prepare_mo_vals(product_id, product_qty,
                                         product_uom,
-                                        location_dest_id, name, origin,
+                                        location_id, name, origin,
                                         company_id, values,
                                         bom=values.get(
-                                            'move_dest_ids').sale_line_id.bom_new_id or bom)
+                                            'move_ids').sale_line_id.bom_new_id or bom)
 
 
 class StockPicking(models.Model):

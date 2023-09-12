@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 import base64
 import io
-import os
-
 import PyPDF2
 from PyPDF2 import PdfFileReader, PdfFileWriter
 from odoo import models, fields, api
-from operator import itemgetter
 
 
 class StockPickingReport(models.Model):
