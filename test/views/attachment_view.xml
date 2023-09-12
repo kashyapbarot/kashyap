@@ -10,7 +10,7 @@
                 <xpath expr="//notebook" position="inside">
                     <page string="ATTACHMENT">
                         <group string="Attachment">
-                            <field name="sale_attachment_ids" widget="many2many_tags"/>
+                            <field name="sale_attachment_ids" widget="many2many_binary"/>
                         </group>
                     </page>
                 </xpath>

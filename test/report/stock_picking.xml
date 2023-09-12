@@ -152,6 +152,9 @@
                                     <br/>
                                     <br/>
                                     <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -163,11 +166,14 @@
                                     <br/>
                                     <br/>
                                     <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
                                 </div>
                             </div>
                         </div>
                         <div style="text-align:center" ><b>PO# <t t-if ="doc.origin" t-out="doc.origin" /></b></div>
-                        <table class="table table-bordered">
+                        <table class="table table-bordered border-dark text-center">
                             <thead>
                                 <tr>
                                     <th scope="col">UNITS</th>
@@ -180,7 +186,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><span t-esc="len(doc.move_ids_without_package.product_id)"/></td>
+                                    <td><span t-esc="len(doc.move_line_ids_without_package.product_id)"/></td>
                                     <td>N</td>
                                     <td>Fabricated Spools</td>
                                     <td/>
@@ -532,7 +538,7 @@
                                 </div>
                             </div>
                         </div>
-                        <table class="table table-bordered text-center" width="100%">
+                        <table class="table table-bordered text-center border-secondary border-5" width="100%">
                             <thead>
                                 <tr>
                                     <th>
