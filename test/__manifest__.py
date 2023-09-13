@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#pylint: disable=E0401,C0115,R0903,C0114,R1725,C0301,R0801,R0913,C0301,W0212,C0209
+# pylint: disable=E0401,C0115,R0903,C0114,R1725,C0301,R0801,R0913,C0301,W0212,C0209
 
 {
     'name': 'test',
@@ -7,16 +7,15 @@
     'summary': 'Test',
     'description': "test product",
     'category': 'Property',
-    'depends': ['crm', 'purchase', 'sale', 'mrp', 'mail'],
-    'data': ['security/ir.model.access.csv',
+    'depends': ['purchase', 'sale', 'mrp', 'mail','base'],
+    'data': ['views/customer_doc_tags_view.xml',
              'security/res_groups.xml',
+             'security/ir.model.access.csv',
              'data/tags_name.xml',
              'wizard/productivity_wizard.xml',
              'wizard/sale_order_wizard.xml',
              'report/stock_picking.xml',
              'views/documents_custom_view.xml',
-             'views/customer_doc_tags_view.xml',
-             'views/customer_doc_tags_view.xml',
              'views/delivery_order_form_view.xml',
              'views/sale_order_to_stoke_move.xml',
              'views/sale_order_qr_view.xml',

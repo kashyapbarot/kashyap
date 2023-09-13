@@ -38,6 +38,5 @@
         </field>
     </record>
 
-    <menuitem name="Tag Name" id="tag_name_menu"
-              parent="kasyap_test_root_menu" action="tag_name_act_window"/>
+
 </odoo>

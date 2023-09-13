@@ -553,21 +553,6 @@
                                     <th>
                                         <b>Done</b>
                                     </th>
-<!--                                    <th scope="col">-->
-<!--                                        <b>RRev</b>-->
-<!--                                    </th>-->
-<!--                                    <th scope="col">-->
-<!--                                        <b>Priority</b>-->
-<!--                                    </th>-->
-<!--                                    <th scope="col">-->
-<!--                                        <b>Spec</b>-->
-<!--                                    </th>-->
-<!--                                    <th scope="col">-->
-<!--                                        <b>MatGroup</b>-->
-<!--                                    </th>-->
-<!--                                    <th scope="col">-->
-<!--                                        <b>wt{lb)</b>-->
-<!--                                    </th>-->
                                 </tr>
                             </thead>
                             <tbody>

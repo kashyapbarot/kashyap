@@ -2,8 +2,15 @@
 <odoo>
     <data>
         <menuitem name="Custom Documents" id="kasyap_test_root_menu"/>
-        <menuitem name="Documents" id="kasyap_test_sub_menu" parent="kasyap_test_root_menu"/>
-        <menuitem name="Documents" id="documents_menu" parent="kasyap_test_sub_menu" action="custom_documents_act_window"/>
-        <menuitem name="Tags" id="documents_tags_menu" parent="kasyap_test_root_menu" action="customer_tags_act_window"/>
+        <menuitem name="Documents" id="kasyap_test_sub_menu"
+                  parent="kasyap_test_root_menu"/>
+        <menuitem name="Documents" id="documents_menu"
+                  parent="kasyap_test_sub_menu"
+                  action="custom_documents_act_window"/>
+        <menuitem name="Tags" id="documents_tags_menu"
+                  parent="kasyap_test_root_menu"
+                  action="customer_tags_act_window"/>
+        <menuitem name="Tag Name" id="tag_name_menu"
+                  parent="kasyap_test_root_menu" action="tag_name_act_window"/>
     </data>
 </odoo>

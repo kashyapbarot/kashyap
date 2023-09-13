@@ -173,7 +173,7 @@ class StockRule(models.Model):
                          location_id, name, origin, company_id, values,
                          bom):
         # values.get('group_id').sale_id.order_line.bom_new_id
-        # bom_new_id = values.get('move_dest_ids').sale_line_id.bom_new_id
+        # bom_new_id = values.get('move_ids').sale_line_id.bom_new_id
         # res.update({'bom_id': bom_new_id.id})
         return super()._prepare_mo_vals(product_id, product_qty,
                                         product_uom,
@@ -203,9 +203,9 @@ class StockMove(models.Model):
         return res
 
 
-class ProductLabelLayout(models.TransientModel):
-    _inherit = 'product.label.layout'
-
-    def _prepare_report_data(self):
-        res = super()._prepare_report_data()
-        return res
+# class ProductLabelLayout(models.TransientModel):
+#     _inherit = 'product.label.layout'
+#
+#     def _prepare_report_data(self):
+#         res = super()._prepare_report_data()
+#         return res

@@ -55,4 +55,4 @@ class IrActionsReport(models.Model):
                     result = list(result)
                     result[0] = output_byte
                     result = tuple(result)
-            return result
+        return result
